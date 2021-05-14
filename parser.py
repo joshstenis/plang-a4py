@@ -144,10 +144,17 @@ def p_stmt(p):
             | declaration
             | construct_while
             | construct_repeat
-            | construct_if'''
+            | construct_if
+            | block'''
+
+def p_block(p):
+    '''block : BEGIN stmt_list END'''
+    p[0] = p[2]
 
 def p_construct_while(p):
-    '''construct_while : WHILE LPAR l_expr RPAR DO stmt'''
+    '''construct_while : WHILE LPAR l_expr RPAR DO block'''
+    while(p[3]):
+        p[6]
 
 def p_construct_repeat(p):
     '''construct_repeat : REPEAT stmt_list UNTIL LPAR l_expr RPAR'''
@@ -178,8 +185,12 @@ def p_oprel(p):
     p[0] = p[1]
 
 def p_assignment(p):
-    '''assignment : ID arr_idx ASSIGN a_expr'''
-    env[p[1]][p[2]] = p[4]
+    '''assignment : ID arr_idx ASSIGN a_expr
+                  | ID ASSIGN a_expr'''
+    if p[2] == ':=':
+        env[p[1]] = p[3]
+    else:
+        env[p[1]][p[2]] = p[4]
 
 def p_declaration(p):
     '''declaration : datatype ID arr_size'''
