@@ -125,6 +125,9 @@ lexer = lex.lex()
 # Grammar rules (.y) below
 # ---------------------------------------------
 
+env = {}
+stack = []
+
 def p_program(p):
     '''program : stmt_list SEMICOLON'''
 
