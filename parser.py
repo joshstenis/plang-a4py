@@ -13,9 +13,11 @@ tokens = (
 
 def t_FLOAT(t):
     r'\d+\.\d+'
+    t.value = float(t.value)
     return t
 def t_INTEGER(t):
     r'\d+'
+    t.value = int(t.value)
     return t
 def t_ASSIGN(t):
     r':='
@@ -132,7 +134,7 @@ def p_program(p):
     '''program : stmt_list SEMICOLON'''
 
 def p_stmt_list(p):
-    '''stmt_list : stmt_list SEMICOLON
+    '''stmt_list : stmt_list SEMICOLON stmt
                  | stmt'''
 
 def p_stmt(p):
@@ -142,11 +144,7 @@ def p_stmt(p):
             | declaration
             | construct_while
             | construct_repeat
-            | construct_if
-            | block'''
-
-def p_block(p):
-    '''block : BEGIN stmt_list END'''
+            | construct_if'''
 
 def p_construct_while(p):
     '''construct_while : WHILE LPAR l_expr RPAR DO stmt'''
@@ -163,25 +161,45 @@ def p_construct_else(p):
 
 def p_l_expr(p):
     '''l_expr : a_expr oprel a_expr'''
+    if p[2] == '<':
+        p[0] = p[1] < p[3]
+    elif p[2] == '>':
+        p[0] = p[1] > p[3]
+    elif p[2] == '<=':
+        p[0] = p[1] <= p[3]
+    elif p[2] == '>=':
+        p[0] = p[1] >= p[3]
 
 def p_oprel(p):
     '''oprel : LT
              | GT
              | LEQ
              | GEQ'''
+    p[0] = p[1]
 
 def p_assignment(p):
     '''assignment : ID arr_idx ASSIGN a_expr'''
+    env[p[1]][p[2]] = p[4]
 
 def p_declaration(p):
     '''declaration : datatype ID arr_size'''
+    if p[1] == 'int':
+        env[p[2]] = [int(0)] * p[3]
+    elif p[1] == 'float':
+        env[p[2]] = [float(0)] * p[3]
 
 def p_arr_size(p):
-    '''arr_size : LBRACK INTEGER RBRACK'''
+    '''arr_size : LBRACK a_expr RBRACK
+                | '''
+    try:
+        p[0] = p[2]
+    except IndexError:
+        p[0] = 1
 
 def p_datatype(p):
     '''datatype : DT_INT
                 | DT_FLOAT'''
+    p[0] = p[1]
 
 def p_a_expr(p):
     '''a_expr : a_expr a_op a_expr
@@ -191,6 +209,21 @@ def p_a_expr(p):
               | LPAR a_expr RPAR
               | SUB a_expr
               | LITERAL_STR'''
+    try:
+        if p[2] == '*':
+            p[0] = p[1] * p[3]
+        elif p[2] == '/':
+            p[0] = p[1] / p[3]
+        elif p[2] == '+':
+            p[0] = p[1] + p[3]
+        elif p[2] == '-':
+            p[0] = p[1] - p[3]
+    except:
+        if p[1] == '(':
+            p[0] = p[1]
+        elif p[1] == '-':
+            p[0] = p[2] * -1
+        else: p[0] = p[1]
 
 def p_a_op(p):
     '''a_op : ADD
@@ -201,9 +234,11 @@ def p_a_op(p):
 
 def p_varref(p):
     '''varref : ID arr_idx'''
+    p[0] = env[p[1]][p[2]]
 
 def p_arr_idx(p):
     '''arr_idx : LBRACK a_expr RBRACK'''
+    p[0] = p[2]
 
 def p_read(p):
     '''read : READ varlist'''
@@ -232,3 +267,4 @@ parser = yacc.yacc()
 
 prgm = open('inputs-outputs/{}.smp'.format(input('File: ')), 'r').read()
 parser.parse(prgm, lexer)
+print('Environment: {}'.format(env))
