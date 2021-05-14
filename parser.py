@@ -160,8 +160,18 @@ def p_construct_repeat(p):
     '''construct_repeat : REPEAT stmt_list UNTIL LPAR l_expr RPAR'''
 
 def p_construct_if(p):
-    '''construct_if : IF LPAR l_expr RPAR stmt construct_else'''
-    if p[3]:
+    '''construct_if : IF LPAR a_expr oprel a_expr RPAR stmt construct_else'''
+    cond = bool
+    if p[4] == '<':
+        cond = p[1] < p[3]
+    elif p[4] == '>':
+        cond = p[1] > p[3]
+    elif p[4] == '<=':
+        cond = p[1] <= p[3]
+    elif p[4] == '>=':
+        cond = p[1] >= p[3]
+
+    if cond:
         p[5]
     else:
         if p[6] is None: pass
