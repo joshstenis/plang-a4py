@@ -161,13 +161,23 @@ def p_construct_repeat(p):
 
 def p_construct_if(p):
     '''construct_if : IF LPAR l_expr RPAR stmt construct_else'''
+    if p[3]:
+        p[5]
+    else:
+        if p[6] is None: pass
+        else:
+            p[6]
 
 def p_construct_else(p):
     '''construct_else : 
                       | ELSE stmt'''
+    try:
+       p[0] = p[2]
+    except IndexError: p[0] = None
 
 def p_l_expr(p):
     '''l_expr : a_expr oprel a_expr'''
+    print('l_expr...')
     if p[2] == '<':
         p[0] = p[1] < p[3]
     elif p[2] == '>':
