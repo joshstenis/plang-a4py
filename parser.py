@@ -96,7 +96,7 @@ def t_LPAR(t):
     r'\('
     return t
 def t_RPAR(t):
-    r')'
+    r'\)'
     return t
 def t_LBRACK(t):
     r'\['
@@ -191,6 +191,13 @@ def p_a_expr(p):
               | LPAR a_expr RPAR
               | SUB a_expr
               | LITERAL_STR'''
+
+def p_a_op(p):
+    '''a_op : ADD
+            | SUB
+            | MUL
+            | DIV'''
+    p[0] = p[1]
 
 def p_varref(p):
     '''varref : ID arr_idx'''

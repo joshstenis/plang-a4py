@@ -1,0 +1,1514 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    THEN
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> stmt_list SEMICOLON
+Rule 2     stmt_list -> stmt_list SEMICOLON
+Rule 3     stmt_list -> stmt
+Rule 4     stmt -> assignment
+Rule 5     stmt -> read
+Rule 6     stmt -> write
+Rule 7     stmt -> declaration
+Rule 8     stmt -> construct_while
+Rule 9     stmt -> construct_repeat
+Rule 10    stmt -> construct_if
+Rule 11    stmt -> block
+Rule 12    block -> BEGIN stmt_list END
+Rule 13    construct_while -> WHILE LPAR l_expr RPAR DO stmt
+Rule 14    construct_repeat -> REPEAT stmt_list UNTIL LPAR l_expr RPAR
+Rule 15    construct_if -> IF LPAR l_expr RPAR stmt construct_else
+Rule 16    construct_else -> <empty>
+Rule 17    construct_else -> ELSE stmt
+Rule 18    l_expr -> a_expr oprel a_expr
+Rule 19    oprel -> LT
+Rule 20    oprel -> GT
+Rule 21    oprel -> LEQ
+Rule 22    oprel -> GEQ
+Rule 23    assignment -> ID arr_idx ASSIGN a_expr
+Rule 24    declaration -> datatype ID arr_size
+Rule 25    arr_size -> LBRACK INTEGER RBRACK
+Rule 26    datatype -> DT_INT
+Rule 27    datatype -> DT_FLOAT
+Rule 28    a_expr -> a_expr a_op a_expr
+Rule 29    a_expr -> varref
+Rule 30    a_expr -> INTEGER
+Rule 31    a_expr -> FLOAT
+Rule 32    a_expr -> LPAR a_expr RPAR
+Rule 33    a_expr -> SUB a_expr
+Rule 34    a_expr -> LITERAL_STR
+Rule 35    a_op -> ADD
+Rule 36    a_op -> SUB
+Rule 37    a_op -> MUL
+Rule 38    a_op -> DIV
+Rule 39    varref -> ID arr_idx
+Rule 40    arr_idx -> LBRACK a_expr RBRACK
+Rule 41    read -> READ varlist
+Rule 42    write -> WRITE expr_list
+Rule 43    varlist -> varlist COMMA varref
+Rule 44    varlist -> varref
+Rule 45    expr_list -> expr_list COMMA a_expr
+Rule 46    expr_list -> a_expr
+
+Terminals, with rules where they appear
+
+ADD                  : 35
+ASSIGN               : 23
+BEGIN                : 12
+COMMA                : 43 45
+DIV                  : 38
+DO                   : 13
+DT_FLOAT             : 27
+DT_INT               : 26
+ELSE                 : 17
+END                  : 12
+FLOAT                : 31
+GEQ                  : 22
+GT                   : 20
+ID                   : 23 24 39
+IF                   : 15
+INTEGER              : 25 30
+LBRACK               : 25 40
+LEQ                  : 21
+LITERAL_STR          : 34
+LPAR                 : 13 14 15 32
+LT                   : 19
+MUL                  : 37
+RBRACK               : 25 40
+READ                 : 41
+REPEAT               : 14
+RPAR                 : 13 14 15 32
+SEMICOLON            : 1 2
+SUB                  : 33 36
+THEN                 : 
+UNTIL                : 14
+WHILE                : 13
+WRITE                : 42
+error                : 
+
+Nonterminals, with rules where they appear
+
+a_expr               : 18 18 23 28 28 32 33 40 45 46
+a_op                 : 28
+arr_idx              : 23 39
+arr_size             : 24
+assignment           : 4
+block                : 11
+construct_else       : 15
+construct_if         : 10
+construct_repeat     : 9
+construct_while      : 8
+datatype             : 24
+declaration          : 7
+expr_list            : 42 45
+l_expr               : 13 14 15
+oprel                : 18
+program              : 0
+read                 : 5
+stmt                 : 3 13 15 17
+stmt_list            : 1 2 12 14
+varlist              : 41 43
+varref               : 29 43 44
+write                : 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . stmt_list SEMICOLON
+    (2) stmt_list -> . stmt_list SEMICOLON
+    (3) stmt_list -> . stmt
+    (4) stmt -> . assignment
+    (5) stmt -> . read
+    (6) stmt -> . write
+    (7) stmt -> . declaration
+    (8) stmt -> . construct_while
+    (9) stmt -> . construct_repeat
+    (10) stmt -> . construct_if
+    (11) stmt -> . block
+    (23) assignment -> . ID arr_idx ASSIGN a_expr
+    (41) read -> . READ varlist
+    (42) write -> . WRITE expr_list
+    (24) declaration -> . datatype ID arr_size
+    (13) construct_while -> . WHILE LPAR l_expr RPAR DO stmt
+    (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
+    (12) block -> . BEGIN stmt_list END
+    (26) datatype -> . DT_INT
+    (27) datatype -> . DT_FLOAT
+
+    ID              shift and go to state 12
+    READ            shift and go to state 13
+    WRITE           shift and go to state 14
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    IF              shift and go to state 18
+    BEGIN           shift and go to state 19
+    DT_INT          shift and go to state 20
+    DT_FLOAT        shift and go to state 21
+
+    program                        shift and go to state 1
+    stmt_list                      shift and go to state 2
+    stmt                           shift and go to state 3
+    assignment                     shift and go to state 4
+    read                           shift and go to state 5
+    write                          shift and go to state 6
+    declaration                    shift and go to state 7
+    construct_while                shift and go to state 8
+    construct_repeat               shift and go to state 9
+    construct_if                   shift and go to state 10
+    block                          shift and go to state 11
+    datatype                       shift and go to state 15
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> stmt_list . SEMICOLON
+    (2) stmt_list -> stmt_list . SEMICOLON
+
+    SEMICOLON       shift and go to state 22
+
+
+state 3
+
+    (3) stmt_list -> stmt .
+
+    SEMICOLON       reduce using rule 3 (stmt_list -> stmt .)
+    UNTIL           reduce using rule 3 (stmt_list -> stmt .)
+    END             reduce using rule 3 (stmt_list -> stmt .)
+
+
+state 4
+
+    (4) stmt -> assignment .
+
+    SEMICOLON       reduce using rule 4 (stmt -> assignment .)
+    UNTIL           reduce using rule 4 (stmt -> assignment .)
+    END             reduce using rule 4 (stmt -> assignment .)
+    ELSE            reduce using rule 4 (stmt -> assignment .)
+
+
+state 5
+
+    (5) stmt -> read .
+
+    SEMICOLON       reduce using rule 5 (stmt -> read .)
+    UNTIL           reduce using rule 5 (stmt -> read .)
+    END             reduce using rule 5 (stmt -> read .)
+    ELSE            reduce using rule 5 (stmt -> read .)
+
+
+state 6
+
+    (6) stmt -> write .
+
+    SEMICOLON       reduce using rule 6 (stmt -> write .)
+    UNTIL           reduce using rule 6 (stmt -> write .)
+    END             reduce using rule 6 (stmt -> write .)
+    ELSE            reduce using rule 6 (stmt -> write .)
+
+
+state 7
+
+    (7) stmt -> declaration .
+
+    SEMICOLON       reduce using rule 7 (stmt -> declaration .)
+    UNTIL           reduce using rule 7 (stmt -> declaration .)
+    END             reduce using rule 7 (stmt -> declaration .)
+    ELSE            reduce using rule 7 (stmt -> declaration .)
+
+
+state 8
+
+    (8) stmt -> construct_while .
+
+    SEMICOLON       reduce using rule 8 (stmt -> construct_while .)
+    UNTIL           reduce using rule 8 (stmt -> construct_while .)
+    END             reduce using rule 8 (stmt -> construct_while .)
+    ELSE            reduce using rule 8 (stmt -> construct_while .)
+
+
+state 9
+
+    (9) stmt -> construct_repeat .
+
+    SEMICOLON       reduce using rule 9 (stmt -> construct_repeat .)
+    UNTIL           reduce using rule 9 (stmt -> construct_repeat .)
+    END             reduce using rule 9 (stmt -> construct_repeat .)
+    ELSE            reduce using rule 9 (stmt -> construct_repeat .)
+
+
+state 10
+
+    (10) stmt -> construct_if .
+
+    SEMICOLON       reduce using rule 10 (stmt -> construct_if .)
+    UNTIL           reduce using rule 10 (stmt -> construct_if .)
+    END             reduce using rule 10 (stmt -> construct_if .)
+    ELSE            reduce using rule 10 (stmt -> construct_if .)
+
+
+state 11
+
+    (11) stmt -> block .
+
+    SEMICOLON       reduce using rule 11 (stmt -> block .)
+    UNTIL           reduce using rule 11 (stmt -> block .)
+    END             reduce using rule 11 (stmt -> block .)
+    ELSE            reduce using rule 11 (stmt -> block .)
+
+
+state 12
+
+    (23) assignment -> ID . arr_idx ASSIGN a_expr
+    (40) arr_idx -> . LBRACK a_expr RBRACK
+
+    LBRACK          shift and go to state 24
+
+    arr_idx                        shift and go to state 23
+
+state 13
+
+    (41) read -> READ . varlist
+    (43) varlist -> . varlist COMMA varref
+    (44) varlist -> . varref
+    (39) varref -> . ID arr_idx
+
+    ID              shift and go to state 27
+
+    varlist                        shift and go to state 25
+    varref                         shift and go to state 26
+
+state 14
+
+    (42) write -> WRITE . expr_list
+    (45) expr_list -> . expr_list COMMA a_expr
+    (46) expr_list -> . a_expr
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    expr_list                      shift and go to state 28
+    a_expr                         shift and go to state 29
+    varref                         shift and go to state 30
+
+state 15
+
+    (24) declaration -> datatype . ID arr_size
+
+    ID              shift and go to state 36
+
+
+state 16
+
+    (13) construct_while -> WHILE . LPAR l_expr RPAR DO stmt
+
+    LPAR            shift and go to state 37
+
+
+state 17
+
+    (14) construct_repeat -> REPEAT . stmt_list UNTIL LPAR l_expr RPAR
+    (2) stmt_list -> . stmt_list SEMICOLON
+    (3) stmt_list -> . stmt
+    (4) stmt -> . assignment
+    (5) stmt -> . read
+    (6) stmt -> . write
+    (7) stmt -> . declaration
+    (8) stmt -> . construct_while
+    (9) stmt -> . construct_repeat
+    (10) stmt -> . construct_if
+    (11) stmt -> . block
+    (23) assignment -> . ID arr_idx ASSIGN a_expr
+    (41) read -> . READ varlist
+    (42) write -> . WRITE expr_list
+    (24) declaration -> . datatype ID arr_size
+    (13) construct_while -> . WHILE LPAR l_expr RPAR DO stmt
+    (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
+    (12) block -> . BEGIN stmt_list END
+    (26) datatype -> . DT_INT
+    (27) datatype -> . DT_FLOAT
+
+    ID              shift and go to state 12
+    READ            shift and go to state 13
+    WRITE           shift and go to state 14
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    IF              shift and go to state 18
+    BEGIN           shift and go to state 19
+    DT_INT          shift and go to state 20
+    DT_FLOAT        shift and go to state 21
+
+    stmt_list                      shift and go to state 38
+    stmt                           shift and go to state 3
+    assignment                     shift and go to state 4
+    read                           shift and go to state 5
+    write                          shift and go to state 6
+    declaration                    shift and go to state 7
+    construct_while                shift and go to state 8
+    construct_repeat               shift and go to state 9
+    construct_if                   shift and go to state 10
+    block                          shift and go to state 11
+    datatype                       shift and go to state 15
+
+state 18
+
+    (15) construct_if -> IF . LPAR l_expr RPAR stmt construct_else
+
+    LPAR            shift and go to state 39
+
+
+state 19
+
+    (12) block -> BEGIN . stmt_list END
+    (2) stmt_list -> . stmt_list SEMICOLON
+    (3) stmt_list -> . stmt
+    (4) stmt -> . assignment
+    (5) stmt -> . read
+    (6) stmt -> . write
+    (7) stmt -> . declaration
+    (8) stmt -> . construct_while
+    (9) stmt -> . construct_repeat
+    (10) stmt -> . construct_if
+    (11) stmt -> . block
+    (23) assignment -> . ID arr_idx ASSIGN a_expr
+    (41) read -> . READ varlist
+    (42) write -> . WRITE expr_list
+    (24) declaration -> . datatype ID arr_size
+    (13) construct_while -> . WHILE LPAR l_expr RPAR DO stmt
+    (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
+    (12) block -> . BEGIN stmt_list END
+    (26) datatype -> . DT_INT
+    (27) datatype -> . DT_FLOAT
+
+    ID              shift and go to state 12
+    READ            shift and go to state 13
+    WRITE           shift and go to state 14
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    IF              shift and go to state 18
+    BEGIN           shift and go to state 19
+    DT_INT          shift and go to state 20
+    DT_FLOAT        shift and go to state 21
+
+    stmt_list                      shift and go to state 40
+    stmt                           shift and go to state 3
+    assignment                     shift and go to state 4
+    read                           shift and go to state 5
+    write                          shift and go to state 6
+    declaration                    shift and go to state 7
+    construct_while                shift and go to state 8
+    construct_repeat               shift and go to state 9
+    construct_if                   shift and go to state 10
+    block                          shift and go to state 11
+    datatype                       shift and go to state 15
+
+state 20
+
+    (26) datatype -> DT_INT .
+
+    ID              reduce using rule 26 (datatype -> DT_INT .)
+
+
+state 21
+
+    (27) datatype -> DT_FLOAT .
+
+    ID              reduce using rule 27 (datatype -> DT_FLOAT .)
+
+
+state 22
+
+    (1) program -> stmt_list SEMICOLON .
+    (2) stmt_list -> stmt_list SEMICOLON .
+
+    $end            reduce using rule 1 (program -> stmt_list SEMICOLON .)
+    SEMICOLON       reduce using rule 2 (stmt_list -> stmt_list SEMICOLON .)
+
+
+state 23
+
+    (23) assignment -> ID arr_idx . ASSIGN a_expr
+
+    ASSIGN          shift and go to state 41
+
+
+state 24
+
+    (40) arr_idx -> LBRACK . a_expr RBRACK
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    a_expr                         shift and go to state 42
+    varref                         shift and go to state 30
+
+state 25
+
+    (41) read -> READ varlist .
+    (43) varlist -> varlist . COMMA varref
+
+    SEMICOLON       reduce using rule 41 (read -> READ varlist .)
+    UNTIL           reduce using rule 41 (read -> READ varlist .)
+    END             reduce using rule 41 (read -> READ varlist .)
+    ELSE            reduce using rule 41 (read -> READ varlist .)
+    COMMA           shift and go to state 43
+
+
+state 26
+
+    (44) varlist -> varref .
+
+    COMMA           reduce using rule 44 (varlist -> varref .)
+    SEMICOLON       reduce using rule 44 (varlist -> varref .)
+    UNTIL           reduce using rule 44 (varlist -> varref .)
+    END             reduce using rule 44 (varlist -> varref .)
+    ELSE            reduce using rule 44 (varlist -> varref .)
+
+
+state 27
+
+    (39) varref -> ID . arr_idx
+    (40) arr_idx -> . LBRACK a_expr RBRACK
+
+    LBRACK          shift and go to state 24
+
+    arr_idx                        shift and go to state 44
+
+state 28
+
+    (42) write -> WRITE expr_list .
+    (45) expr_list -> expr_list . COMMA a_expr
+
+    SEMICOLON       reduce using rule 42 (write -> WRITE expr_list .)
+    UNTIL           reduce using rule 42 (write -> WRITE expr_list .)
+    END             reduce using rule 42 (write -> WRITE expr_list .)
+    ELSE            reduce using rule 42 (write -> WRITE expr_list .)
+    COMMA           shift and go to state 45
+
+
+state 29
+
+    (46) expr_list -> a_expr .
+    (28) a_expr -> a_expr . a_op a_expr
+    (35) a_op -> . ADD
+    (36) a_op -> . SUB
+    (37) a_op -> . MUL
+    (38) a_op -> . DIV
+
+    COMMA           reduce using rule 46 (expr_list -> a_expr .)
+    SEMICOLON       reduce using rule 46 (expr_list -> a_expr .)
+    UNTIL           reduce using rule 46 (expr_list -> a_expr .)
+    END             reduce using rule 46 (expr_list -> a_expr .)
+    ELSE            reduce using rule 46 (expr_list -> a_expr .)
+    ADD             shift and go to state 47
+    SUB             shift and go to state 48
+    MUL             shift and go to state 49
+    DIV             shift and go to state 50
+
+    a_op                           shift and go to state 46
+
+state 30
+
+    (29) a_expr -> varref .
+
+    ADD             reduce using rule 29 (a_expr -> varref .)
+    SUB             reduce using rule 29 (a_expr -> varref .)
+    MUL             reduce using rule 29 (a_expr -> varref .)
+    DIV             reduce using rule 29 (a_expr -> varref .)
+    COMMA           reduce using rule 29 (a_expr -> varref .)
+    SEMICOLON       reduce using rule 29 (a_expr -> varref .)
+    UNTIL           reduce using rule 29 (a_expr -> varref .)
+    END             reduce using rule 29 (a_expr -> varref .)
+    ELSE            reduce using rule 29 (a_expr -> varref .)
+    RBRACK          reduce using rule 29 (a_expr -> varref .)
+    RPAR            reduce using rule 29 (a_expr -> varref .)
+    LT              reduce using rule 29 (a_expr -> varref .)
+    GT              reduce using rule 29 (a_expr -> varref .)
+    LEQ             reduce using rule 29 (a_expr -> varref .)
+    GEQ             reduce using rule 29 (a_expr -> varref .)
+
+
+state 31
+
+    (30) a_expr -> INTEGER .
+
+    ADD             reduce using rule 30 (a_expr -> INTEGER .)
+    SUB             reduce using rule 30 (a_expr -> INTEGER .)
+    MUL             reduce using rule 30 (a_expr -> INTEGER .)
+    DIV             reduce using rule 30 (a_expr -> INTEGER .)
+    COMMA           reduce using rule 30 (a_expr -> INTEGER .)
+    SEMICOLON       reduce using rule 30 (a_expr -> INTEGER .)
+    UNTIL           reduce using rule 30 (a_expr -> INTEGER .)
+    END             reduce using rule 30 (a_expr -> INTEGER .)
+    ELSE            reduce using rule 30 (a_expr -> INTEGER .)
+    RBRACK          reduce using rule 30 (a_expr -> INTEGER .)
+    RPAR            reduce using rule 30 (a_expr -> INTEGER .)
+    LT              reduce using rule 30 (a_expr -> INTEGER .)
+    GT              reduce using rule 30 (a_expr -> INTEGER .)
+    LEQ             reduce using rule 30 (a_expr -> INTEGER .)
+    GEQ             reduce using rule 30 (a_expr -> INTEGER .)
+
+
+state 32
+
+    (31) a_expr -> FLOAT .
+
+    ADD             reduce using rule 31 (a_expr -> FLOAT .)
+    SUB             reduce using rule 31 (a_expr -> FLOAT .)
+    MUL             reduce using rule 31 (a_expr -> FLOAT .)
+    DIV             reduce using rule 31 (a_expr -> FLOAT .)
+    COMMA           reduce using rule 31 (a_expr -> FLOAT .)
+    SEMICOLON       reduce using rule 31 (a_expr -> FLOAT .)
+    UNTIL           reduce using rule 31 (a_expr -> FLOAT .)
+    END             reduce using rule 31 (a_expr -> FLOAT .)
+    ELSE            reduce using rule 31 (a_expr -> FLOAT .)
+    RBRACK          reduce using rule 31 (a_expr -> FLOAT .)
+    RPAR            reduce using rule 31 (a_expr -> FLOAT .)
+    LT              reduce using rule 31 (a_expr -> FLOAT .)
+    GT              reduce using rule 31 (a_expr -> FLOAT .)
+    LEQ             reduce using rule 31 (a_expr -> FLOAT .)
+    GEQ             reduce using rule 31 (a_expr -> FLOAT .)
+
+
+state 33
+
+    (32) a_expr -> LPAR . a_expr RPAR
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    a_expr                         shift and go to state 51
+    varref                         shift and go to state 30
+
+state 34
+
+    (33) a_expr -> SUB . a_expr
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    a_expr                         shift and go to state 52
+    varref                         shift and go to state 30
+
+state 35
+
+    (34) a_expr -> LITERAL_STR .
+
+    ADD             reduce using rule 34 (a_expr -> LITERAL_STR .)
+    SUB             reduce using rule 34 (a_expr -> LITERAL_STR .)
+    MUL             reduce using rule 34 (a_expr -> LITERAL_STR .)
+    DIV             reduce using rule 34 (a_expr -> LITERAL_STR .)
+    COMMA           reduce using rule 34 (a_expr -> LITERAL_STR .)
+    SEMICOLON       reduce using rule 34 (a_expr -> LITERAL_STR .)
+    UNTIL           reduce using rule 34 (a_expr -> LITERAL_STR .)
+    END             reduce using rule 34 (a_expr -> LITERAL_STR .)
+    ELSE            reduce using rule 34 (a_expr -> LITERAL_STR .)
+    RBRACK          reduce using rule 34 (a_expr -> LITERAL_STR .)
+    RPAR            reduce using rule 34 (a_expr -> LITERAL_STR .)
+    LT              reduce using rule 34 (a_expr -> LITERAL_STR .)
+    GT              reduce using rule 34 (a_expr -> LITERAL_STR .)
+    LEQ             reduce using rule 34 (a_expr -> LITERAL_STR .)
+    GEQ             reduce using rule 34 (a_expr -> LITERAL_STR .)
+
+
+state 36
+
+    (24) declaration -> datatype ID . arr_size
+    (25) arr_size -> . LBRACK INTEGER RBRACK
+
+    LBRACK          shift and go to state 54
+
+    arr_size                       shift and go to state 53
+
+state 37
+
+    (13) construct_while -> WHILE LPAR . l_expr RPAR DO stmt
+    (18) l_expr -> . a_expr oprel a_expr
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    l_expr                         shift and go to state 55
+    a_expr                         shift and go to state 56
+    varref                         shift and go to state 30
+
+state 38
+
+    (14) construct_repeat -> REPEAT stmt_list . UNTIL LPAR l_expr RPAR
+    (2) stmt_list -> stmt_list . SEMICOLON
+
+    UNTIL           shift and go to state 57
+    SEMICOLON       shift and go to state 58
+
+
+state 39
+
+    (15) construct_if -> IF LPAR . l_expr RPAR stmt construct_else
+    (18) l_expr -> . a_expr oprel a_expr
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    l_expr                         shift and go to state 59
+    a_expr                         shift and go to state 56
+    varref                         shift and go to state 30
+
+state 40
+
+    (12) block -> BEGIN stmt_list . END
+    (2) stmt_list -> stmt_list . SEMICOLON
+
+    END             shift and go to state 60
+    SEMICOLON       shift and go to state 58
+
+
+state 41
+
+    (23) assignment -> ID arr_idx ASSIGN . a_expr
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    a_expr                         shift and go to state 61
+    varref                         shift and go to state 30
+
+state 42
+
+    (40) arr_idx -> LBRACK a_expr . RBRACK
+    (28) a_expr -> a_expr . a_op a_expr
+    (35) a_op -> . ADD
+    (36) a_op -> . SUB
+    (37) a_op -> . MUL
+    (38) a_op -> . DIV
+
+    RBRACK          shift and go to state 62
+    ADD             shift and go to state 47
+    SUB             shift and go to state 48
+    MUL             shift and go to state 49
+    DIV             shift and go to state 50
+
+    a_op                           shift and go to state 46
+
+state 43
+
+    (43) varlist -> varlist COMMA . varref
+    (39) varref -> . ID arr_idx
+
+    ID              shift and go to state 27
+
+    varref                         shift and go to state 63
+
+state 44
+
+    (39) varref -> ID arr_idx .
+
+    COMMA           reduce using rule 39 (varref -> ID arr_idx .)
+    SEMICOLON       reduce using rule 39 (varref -> ID arr_idx .)
+    UNTIL           reduce using rule 39 (varref -> ID arr_idx .)
+    END             reduce using rule 39 (varref -> ID arr_idx .)
+    ELSE            reduce using rule 39 (varref -> ID arr_idx .)
+    ADD             reduce using rule 39 (varref -> ID arr_idx .)
+    SUB             reduce using rule 39 (varref -> ID arr_idx .)
+    MUL             reduce using rule 39 (varref -> ID arr_idx .)
+    DIV             reduce using rule 39 (varref -> ID arr_idx .)
+    RBRACK          reduce using rule 39 (varref -> ID arr_idx .)
+    RPAR            reduce using rule 39 (varref -> ID arr_idx .)
+    LT              reduce using rule 39 (varref -> ID arr_idx .)
+    GT              reduce using rule 39 (varref -> ID arr_idx .)
+    LEQ             reduce using rule 39 (varref -> ID arr_idx .)
+    GEQ             reduce using rule 39 (varref -> ID arr_idx .)
+
+
+state 45
+
+    (45) expr_list -> expr_list COMMA . a_expr
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    a_expr                         shift and go to state 64
+    varref                         shift and go to state 30
+
+state 46
+
+    (28) a_expr -> a_expr a_op . a_expr
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    a_expr                         shift and go to state 65
+    varref                         shift and go to state 30
+
+state 47
+
+    (35) a_op -> ADD .
+
+    INTEGER         reduce using rule 35 (a_op -> ADD .)
+    FLOAT           reduce using rule 35 (a_op -> ADD .)
+    LPAR            reduce using rule 35 (a_op -> ADD .)
+    SUB             reduce using rule 35 (a_op -> ADD .)
+    LITERAL_STR     reduce using rule 35 (a_op -> ADD .)
+    ID              reduce using rule 35 (a_op -> ADD .)
+
+
+state 48
+
+    (36) a_op -> SUB .
+
+    INTEGER         reduce using rule 36 (a_op -> SUB .)
+    FLOAT           reduce using rule 36 (a_op -> SUB .)
+    LPAR            reduce using rule 36 (a_op -> SUB .)
+    SUB             reduce using rule 36 (a_op -> SUB .)
+    LITERAL_STR     reduce using rule 36 (a_op -> SUB .)
+    ID              reduce using rule 36 (a_op -> SUB .)
+
+
+state 49
+
+    (37) a_op -> MUL .
+
+    INTEGER         reduce using rule 37 (a_op -> MUL .)
+    FLOAT           reduce using rule 37 (a_op -> MUL .)
+    LPAR            reduce using rule 37 (a_op -> MUL .)
+    SUB             reduce using rule 37 (a_op -> MUL .)
+    LITERAL_STR     reduce using rule 37 (a_op -> MUL .)
+    ID              reduce using rule 37 (a_op -> MUL .)
+
+
+state 50
+
+    (38) a_op -> DIV .
+
+    INTEGER         reduce using rule 38 (a_op -> DIV .)
+    FLOAT           reduce using rule 38 (a_op -> DIV .)
+    LPAR            reduce using rule 38 (a_op -> DIV .)
+    SUB             reduce using rule 38 (a_op -> DIV .)
+    LITERAL_STR     reduce using rule 38 (a_op -> DIV .)
+    ID              reduce using rule 38 (a_op -> DIV .)
+
+
+state 51
+
+    (32) a_expr -> LPAR a_expr . RPAR
+    (28) a_expr -> a_expr . a_op a_expr
+    (35) a_op -> . ADD
+    (36) a_op -> . SUB
+    (37) a_op -> . MUL
+    (38) a_op -> . DIV
+
+    RPAR            shift and go to state 66
+    ADD             shift and go to state 47
+    SUB             shift and go to state 48
+    MUL             shift and go to state 49
+    DIV             shift and go to state 50
+
+    a_op                           shift and go to state 46
+
+state 52
+
+    (33) a_expr -> SUB a_expr .
+    (28) a_expr -> a_expr . a_op a_expr
+    (35) a_op -> . ADD
+    (36) a_op -> . SUB
+    (37) a_op -> . MUL
+    (38) a_op -> . DIV
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+  ! shift/reduce conflict for MUL resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+    COMMA           reduce using rule 33 (a_expr -> SUB a_expr .)
+    SEMICOLON       reduce using rule 33 (a_expr -> SUB a_expr .)
+    UNTIL           reduce using rule 33 (a_expr -> SUB a_expr .)
+    END             reduce using rule 33 (a_expr -> SUB a_expr .)
+    ELSE            reduce using rule 33 (a_expr -> SUB a_expr .)
+    RBRACK          reduce using rule 33 (a_expr -> SUB a_expr .)
+    RPAR            reduce using rule 33 (a_expr -> SUB a_expr .)
+    LT              reduce using rule 33 (a_expr -> SUB a_expr .)
+    GT              reduce using rule 33 (a_expr -> SUB a_expr .)
+    LEQ             reduce using rule 33 (a_expr -> SUB a_expr .)
+    GEQ             reduce using rule 33 (a_expr -> SUB a_expr .)
+    ADD             shift and go to state 47
+    SUB             shift and go to state 48
+    MUL             shift and go to state 49
+    DIV             shift and go to state 50
+
+  ! ADD             [ reduce using rule 33 (a_expr -> SUB a_expr .) ]
+  ! SUB             [ reduce using rule 33 (a_expr -> SUB a_expr .) ]
+  ! MUL             [ reduce using rule 33 (a_expr -> SUB a_expr .) ]
+  ! DIV             [ reduce using rule 33 (a_expr -> SUB a_expr .) ]
+
+    a_op                           shift and go to state 46
+
+state 53
+
+    (24) declaration -> datatype ID arr_size .
+
+    SEMICOLON       reduce using rule 24 (declaration -> datatype ID arr_size .)
+    UNTIL           reduce using rule 24 (declaration -> datatype ID arr_size .)
+    END             reduce using rule 24 (declaration -> datatype ID arr_size .)
+    ELSE            reduce using rule 24 (declaration -> datatype ID arr_size .)
+
+
+state 54
+
+    (25) arr_size -> LBRACK . INTEGER RBRACK
+
+    INTEGER         shift and go to state 67
+
+
+state 55
+
+    (13) construct_while -> WHILE LPAR l_expr . RPAR DO stmt
+
+    RPAR            shift and go to state 68
+
+
+state 56
+
+    (18) l_expr -> a_expr . oprel a_expr
+    (28) a_expr -> a_expr . a_op a_expr
+    (19) oprel -> . LT
+    (20) oprel -> . GT
+    (21) oprel -> . LEQ
+    (22) oprel -> . GEQ
+    (35) a_op -> . ADD
+    (36) a_op -> . SUB
+    (37) a_op -> . MUL
+    (38) a_op -> . DIV
+
+    LT              shift and go to state 70
+    GT              shift and go to state 71
+    LEQ             shift and go to state 72
+    GEQ             shift and go to state 73
+    ADD             shift and go to state 47
+    SUB             shift and go to state 48
+    MUL             shift and go to state 49
+    DIV             shift and go to state 50
+
+    oprel                          shift and go to state 69
+    a_op                           shift and go to state 46
+
+state 57
+
+    (14) construct_repeat -> REPEAT stmt_list UNTIL . LPAR l_expr RPAR
+
+    LPAR            shift and go to state 74
+
+
+state 58
+
+    (2) stmt_list -> stmt_list SEMICOLON .
+
+    UNTIL           reduce using rule 2 (stmt_list -> stmt_list SEMICOLON .)
+    SEMICOLON       reduce using rule 2 (stmt_list -> stmt_list SEMICOLON .)
+    END             reduce using rule 2 (stmt_list -> stmt_list SEMICOLON .)
+
+
+state 59
+
+    (15) construct_if -> IF LPAR l_expr . RPAR stmt construct_else
+
+    RPAR            shift and go to state 75
+
+
+state 60
+
+    (12) block -> BEGIN stmt_list END .
+
+    SEMICOLON       reduce using rule 12 (block -> BEGIN stmt_list END .)
+    UNTIL           reduce using rule 12 (block -> BEGIN stmt_list END .)
+    END             reduce using rule 12 (block -> BEGIN stmt_list END .)
+    ELSE            reduce using rule 12 (block -> BEGIN stmt_list END .)
+
+
+state 61
+
+    (23) assignment -> ID arr_idx ASSIGN a_expr .
+    (28) a_expr -> a_expr . a_op a_expr
+    (35) a_op -> . ADD
+    (36) a_op -> . SUB
+    (37) a_op -> . MUL
+    (38) a_op -> . DIV
+
+    SEMICOLON       reduce using rule 23 (assignment -> ID arr_idx ASSIGN a_expr .)
+    UNTIL           reduce using rule 23 (assignment -> ID arr_idx ASSIGN a_expr .)
+    END             reduce using rule 23 (assignment -> ID arr_idx ASSIGN a_expr .)
+    ELSE            reduce using rule 23 (assignment -> ID arr_idx ASSIGN a_expr .)
+    ADD             shift and go to state 47
+    SUB             shift and go to state 48
+    MUL             shift and go to state 49
+    DIV             shift and go to state 50
+
+    a_op                           shift and go to state 46
+
+state 62
+
+    (40) arr_idx -> LBRACK a_expr RBRACK .
+
+    ASSIGN          reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    COMMA           reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    SEMICOLON       reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    UNTIL           reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    END             reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    ELSE            reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    ADD             reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    SUB             reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    MUL             reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    DIV             reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    RBRACK          reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    RPAR            reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    LT              reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    GT              reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    LEQ             reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+    GEQ             reduce using rule 40 (arr_idx -> LBRACK a_expr RBRACK .)
+
+
+state 63
+
+    (43) varlist -> varlist COMMA varref .
+
+    COMMA           reduce using rule 43 (varlist -> varlist COMMA varref .)
+    SEMICOLON       reduce using rule 43 (varlist -> varlist COMMA varref .)
+    UNTIL           reduce using rule 43 (varlist -> varlist COMMA varref .)
+    END             reduce using rule 43 (varlist -> varlist COMMA varref .)
+    ELSE            reduce using rule 43 (varlist -> varlist COMMA varref .)
+
+
+state 64
+
+    (45) expr_list -> expr_list COMMA a_expr .
+    (28) a_expr -> a_expr . a_op a_expr
+    (35) a_op -> . ADD
+    (36) a_op -> . SUB
+    (37) a_op -> . MUL
+    (38) a_op -> . DIV
+
+    COMMA           reduce using rule 45 (expr_list -> expr_list COMMA a_expr .)
+    SEMICOLON       reduce using rule 45 (expr_list -> expr_list COMMA a_expr .)
+    UNTIL           reduce using rule 45 (expr_list -> expr_list COMMA a_expr .)
+    END             reduce using rule 45 (expr_list -> expr_list COMMA a_expr .)
+    ELSE            reduce using rule 45 (expr_list -> expr_list COMMA a_expr .)
+    ADD             shift and go to state 47
+    SUB             shift and go to state 48
+    MUL             shift and go to state 49
+    DIV             shift and go to state 50
+
+    a_op                           shift and go to state 46
+
+state 65
+
+    (28) a_expr -> a_expr a_op a_expr .
+    (28) a_expr -> a_expr . a_op a_expr
+    (35) a_op -> . ADD
+    (36) a_op -> . SUB
+    (37) a_op -> . MUL
+    (38) a_op -> . DIV
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+  ! shift/reduce conflict for MUL resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+    COMMA           reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    SEMICOLON       reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    UNTIL           reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    END             reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    ELSE            reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    RBRACK          reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    RPAR            reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    LT              reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    GT              reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    LEQ             reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    GEQ             reduce using rule 28 (a_expr -> a_expr a_op a_expr .)
+    ADD             shift and go to state 47
+    SUB             shift and go to state 48
+    MUL             shift and go to state 49
+    DIV             shift and go to state 50
+
+  ! ADD             [ reduce using rule 28 (a_expr -> a_expr a_op a_expr .) ]
+  ! SUB             [ reduce using rule 28 (a_expr -> a_expr a_op a_expr .) ]
+  ! MUL             [ reduce using rule 28 (a_expr -> a_expr a_op a_expr .) ]
+  ! DIV             [ reduce using rule 28 (a_expr -> a_expr a_op a_expr .) ]
+
+    a_op                           shift and go to state 46
+
+state 66
+
+    (32) a_expr -> LPAR a_expr RPAR .
+
+    ADD             reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    SUB             reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    MUL             reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    DIV             reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    COMMA           reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    SEMICOLON       reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    UNTIL           reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    END             reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    ELSE            reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    RBRACK          reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    RPAR            reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    LT              reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    GT              reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    LEQ             reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+    GEQ             reduce using rule 32 (a_expr -> LPAR a_expr RPAR .)
+
+
+state 67
+
+    (25) arr_size -> LBRACK INTEGER . RBRACK
+
+    RBRACK          shift and go to state 76
+
+
+state 68
+
+    (13) construct_while -> WHILE LPAR l_expr RPAR . DO stmt
+
+    DO              shift and go to state 77
+
+
+state 69
+
+    (18) l_expr -> a_expr oprel . a_expr
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    a_expr                         shift and go to state 78
+    varref                         shift and go to state 30
+
+state 70
+
+    (19) oprel -> LT .
+
+    INTEGER         reduce using rule 19 (oprel -> LT .)
+    FLOAT           reduce using rule 19 (oprel -> LT .)
+    LPAR            reduce using rule 19 (oprel -> LT .)
+    SUB             reduce using rule 19 (oprel -> LT .)
+    LITERAL_STR     reduce using rule 19 (oprel -> LT .)
+    ID              reduce using rule 19 (oprel -> LT .)
+
+
+state 71
+
+    (20) oprel -> GT .
+
+    INTEGER         reduce using rule 20 (oprel -> GT .)
+    FLOAT           reduce using rule 20 (oprel -> GT .)
+    LPAR            reduce using rule 20 (oprel -> GT .)
+    SUB             reduce using rule 20 (oprel -> GT .)
+    LITERAL_STR     reduce using rule 20 (oprel -> GT .)
+    ID              reduce using rule 20 (oprel -> GT .)
+
+
+state 72
+
+    (21) oprel -> LEQ .
+
+    INTEGER         reduce using rule 21 (oprel -> LEQ .)
+    FLOAT           reduce using rule 21 (oprel -> LEQ .)
+    LPAR            reduce using rule 21 (oprel -> LEQ .)
+    SUB             reduce using rule 21 (oprel -> LEQ .)
+    LITERAL_STR     reduce using rule 21 (oprel -> LEQ .)
+    ID              reduce using rule 21 (oprel -> LEQ .)
+
+
+state 73
+
+    (22) oprel -> GEQ .
+
+    INTEGER         reduce using rule 22 (oprel -> GEQ .)
+    FLOAT           reduce using rule 22 (oprel -> GEQ .)
+    LPAR            reduce using rule 22 (oprel -> GEQ .)
+    SUB             reduce using rule 22 (oprel -> GEQ .)
+    LITERAL_STR     reduce using rule 22 (oprel -> GEQ .)
+    ID              reduce using rule 22 (oprel -> GEQ .)
+
+
+state 74
+
+    (14) construct_repeat -> REPEAT stmt_list UNTIL LPAR . l_expr RPAR
+    (18) l_expr -> . a_expr oprel a_expr
+    (28) a_expr -> . a_expr a_op a_expr
+    (29) a_expr -> . varref
+    (30) a_expr -> . INTEGER
+    (31) a_expr -> . FLOAT
+    (32) a_expr -> . LPAR a_expr RPAR
+    (33) a_expr -> . SUB a_expr
+    (34) a_expr -> . LITERAL_STR
+    (39) varref -> . ID arr_idx
+
+    INTEGER         shift and go to state 31
+    FLOAT           shift and go to state 32
+    LPAR            shift and go to state 33
+    SUB             shift and go to state 34
+    LITERAL_STR     shift and go to state 35
+    ID              shift and go to state 27
+
+    l_expr                         shift and go to state 79
+    a_expr                         shift and go to state 56
+    varref                         shift and go to state 30
+
+state 75
+
+    (15) construct_if -> IF LPAR l_expr RPAR . stmt construct_else
+    (4) stmt -> . assignment
+    (5) stmt -> . read
+    (6) stmt -> . write
+    (7) stmt -> . declaration
+    (8) stmt -> . construct_while
+    (9) stmt -> . construct_repeat
+    (10) stmt -> . construct_if
+    (11) stmt -> . block
+    (23) assignment -> . ID arr_idx ASSIGN a_expr
+    (41) read -> . READ varlist
+    (42) write -> . WRITE expr_list
+    (24) declaration -> . datatype ID arr_size
+    (13) construct_while -> . WHILE LPAR l_expr RPAR DO stmt
+    (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
+    (12) block -> . BEGIN stmt_list END
+    (26) datatype -> . DT_INT
+    (27) datatype -> . DT_FLOAT
+
+    ID              shift and go to state 12
+    READ            shift and go to state 13
+    WRITE           shift and go to state 14
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    IF              shift and go to state 18
+    BEGIN           shift and go to state 19
+    DT_INT          shift and go to state 20
+    DT_FLOAT        shift and go to state 21
+
+    stmt                           shift and go to state 80
+    assignment                     shift and go to state 4
+    read                           shift and go to state 5
+    write                          shift and go to state 6
+    declaration                    shift and go to state 7
+    construct_while                shift and go to state 8
+    construct_repeat               shift and go to state 9
+    construct_if                   shift and go to state 10
+    block                          shift and go to state 11
+    datatype                       shift and go to state 15
+
+state 76
+
+    (25) arr_size -> LBRACK INTEGER RBRACK .
+
+    SEMICOLON       reduce using rule 25 (arr_size -> LBRACK INTEGER RBRACK .)
+    UNTIL           reduce using rule 25 (arr_size -> LBRACK INTEGER RBRACK .)
+    END             reduce using rule 25 (arr_size -> LBRACK INTEGER RBRACK .)
+    ELSE            reduce using rule 25 (arr_size -> LBRACK INTEGER RBRACK .)
+
+
+state 77
+
+    (13) construct_while -> WHILE LPAR l_expr RPAR DO . stmt
+    (4) stmt -> . assignment
+    (5) stmt -> . read
+    (6) stmt -> . write
+    (7) stmt -> . declaration
+    (8) stmt -> . construct_while
+    (9) stmt -> . construct_repeat
+    (10) stmt -> . construct_if
+    (11) stmt -> . block
+    (23) assignment -> . ID arr_idx ASSIGN a_expr
+    (41) read -> . READ varlist
+    (42) write -> . WRITE expr_list
+    (24) declaration -> . datatype ID arr_size
+    (13) construct_while -> . WHILE LPAR l_expr RPAR DO stmt
+    (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
+    (12) block -> . BEGIN stmt_list END
+    (26) datatype -> . DT_INT
+    (27) datatype -> . DT_FLOAT
+
+    ID              shift and go to state 12
+    READ            shift and go to state 13
+    WRITE           shift and go to state 14
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    IF              shift and go to state 18
+    BEGIN           shift and go to state 19
+    DT_INT          shift and go to state 20
+    DT_FLOAT        shift and go to state 21
+
+    stmt                           shift and go to state 81
+    assignment                     shift and go to state 4
+    read                           shift and go to state 5
+    write                          shift and go to state 6
+    declaration                    shift and go to state 7
+    construct_while                shift and go to state 8
+    construct_repeat               shift and go to state 9
+    construct_if                   shift and go to state 10
+    block                          shift and go to state 11
+    datatype                       shift and go to state 15
+
+state 78
+
+    (18) l_expr -> a_expr oprel a_expr .
+    (28) a_expr -> a_expr . a_op a_expr
+    (35) a_op -> . ADD
+    (36) a_op -> . SUB
+    (37) a_op -> . MUL
+    (38) a_op -> . DIV
+
+    RPAR            reduce using rule 18 (l_expr -> a_expr oprel a_expr .)
+    ADD             shift and go to state 47
+    SUB             shift and go to state 48
+    MUL             shift and go to state 49
+    DIV             shift and go to state 50
+
+    a_op                           shift and go to state 46
+
+state 79
+
+    (14) construct_repeat -> REPEAT stmt_list UNTIL LPAR l_expr . RPAR
+
+    RPAR            shift and go to state 82
+
+
+state 80
+
+    (15) construct_if -> IF LPAR l_expr RPAR stmt . construct_else
+    (16) construct_else -> .
+    (17) construct_else -> . ELSE stmt
+
+  ! shift/reduce conflict for ELSE resolved as shift
+    SEMICOLON       reduce using rule 16 (construct_else -> .)
+    UNTIL           reduce using rule 16 (construct_else -> .)
+    END             reduce using rule 16 (construct_else -> .)
+    ELSE            shift and go to state 84
+
+  ! ELSE            [ reduce using rule 16 (construct_else -> .) ]
+
+    construct_else                 shift and go to state 83
+
+state 81
+
+    (13) construct_while -> WHILE LPAR l_expr RPAR DO stmt .
+
+    SEMICOLON       reduce using rule 13 (construct_while -> WHILE LPAR l_expr RPAR DO stmt .)
+    UNTIL           reduce using rule 13 (construct_while -> WHILE LPAR l_expr RPAR DO stmt .)
+    END             reduce using rule 13 (construct_while -> WHILE LPAR l_expr RPAR DO stmt .)
+    ELSE            reduce using rule 13 (construct_while -> WHILE LPAR l_expr RPAR DO stmt .)
+
+
+state 82
+
+    (14) construct_repeat -> REPEAT stmt_list UNTIL LPAR l_expr RPAR .
+
+    SEMICOLON       reduce using rule 14 (construct_repeat -> REPEAT stmt_list UNTIL LPAR l_expr RPAR .)
+    UNTIL           reduce using rule 14 (construct_repeat -> REPEAT stmt_list UNTIL LPAR l_expr RPAR .)
+    END             reduce using rule 14 (construct_repeat -> REPEAT stmt_list UNTIL LPAR l_expr RPAR .)
+    ELSE            reduce using rule 14 (construct_repeat -> REPEAT stmt_list UNTIL LPAR l_expr RPAR .)
+
+
+state 83
+
+    (15) construct_if -> IF LPAR l_expr RPAR stmt construct_else .
+
+    SEMICOLON       reduce using rule 15 (construct_if -> IF LPAR l_expr RPAR stmt construct_else .)
+    UNTIL           reduce using rule 15 (construct_if -> IF LPAR l_expr RPAR stmt construct_else .)
+    END             reduce using rule 15 (construct_if -> IF LPAR l_expr RPAR stmt construct_else .)
+    ELSE            reduce using rule 15 (construct_if -> IF LPAR l_expr RPAR stmt construct_else .)
+
+
+state 84
+
+    (17) construct_else -> ELSE . stmt
+    (4) stmt -> . assignment
+    (5) stmt -> . read
+    (6) stmt -> . write
+    (7) stmt -> . declaration
+    (8) stmt -> . construct_while
+    (9) stmt -> . construct_repeat
+    (10) stmt -> . construct_if
+    (11) stmt -> . block
+    (23) assignment -> . ID arr_idx ASSIGN a_expr
+    (41) read -> . READ varlist
+    (42) write -> . WRITE expr_list
+    (24) declaration -> . datatype ID arr_size
+    (13) construct_while -> . WHILE LPAR l_expr RPAR DO stmt
+    (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
+    (12) block -> . BEGIN stmt_list END
+    (26) datatype -> . DT_INT
+    (27) datatype -> . DT_FLOAT
+
+    ID              shift and go to state 12
+    READ            shift and go to state 13
+    WRITE           shift and go to state 14
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    IF              shift and go to state 18
+    BEGIN           shift and go to state 19
+    DT_INT          shift and go to state 20
+    DT_FLOAT        shift and go to state 21
+
+    stmt                           shift and go to state 85
+    assignment                     shift and go to state 4
+    read                           shift and go to state 5
+    write                          shift and go to state 6
+    declaration                    shift and go to state 7
+    construct_while                shift and go to state 8
+    construct_repeat               shift and go to state 9
+    construct_if                   shift and go to state 10
+    block                          shift and go to state 11
+    datatype                       shift and go to state 15
+
+state 85
+
+    (17) construct_else -> ELSE stmt .
+
+    ELSE            reduce using rule 17 (construct_else -> ELSE stmt .)
+    SEMICOLON       reduce using rule 17 (construct_else -> ELSE stmt .)
+    UNTIL           reduce using rule 17 (construct_else -> ELSE stmt .)
+    END             reduce using rule 17 (construct_else -> ELSE stmt .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ADD in state 52 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 52 resolved as shift
+WARNING: shift/reduce conflict for MUL in state 52 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 52 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 65 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 65 resolved as shift
+WARNING: shift/reduce conflict for MUL in state 65 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 65 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 80 resolved as shift
