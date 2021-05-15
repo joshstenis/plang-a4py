@@ -154,29 +154,20 @@ def p_block(p):
 def p_construct_while(p):
     '''construct_while : WHILE LPAR l_expr RPAR DO block'''
     while(p[3]):
-        p[6]
+        p[0] = p[6]
 
 def p_construct_repeat(p):
     '''construct_repeat : REPEAT stmt_list UNTIL LPAR l_expr RPAR'''
 
 def p_construct_if(p):
-    '''construct_if : IF LPAR a_expr oprel a_expr RPAR stmt construct_else'''
-    cond = bool
-    if p[4] == '<':
-        cond = p[1] < p[3]
-    elif p[4] == '>':
-        cond = p[1] > p[3]
-    elif p[4] == '<=':
-        cond = p[1] <= p[3]
-    elif p[4] == '>=':
-        cond = p[1] >= p[3]
-
+    '''construct_if : IF LPAR l_expr RPAR stmt construct_else'''
+    cond = p[4]
     if cond:
-        p[5]
+        p[0] = p[5]
     else:
         if p[6] is None: pass
         else:
-            p[6]
+            p[0] = p[6]
 
 def p_construct_else(p):
     '''construct_else : 
@@ -187,7 +178,6 @@ def p_construct_else(p):
 
 def p_l_expr(p):
     '''l_expr : a_expr oprel a_expr'''
-    print('l_expr...')
     if p[2] == '<':
         p[0] = p[1] < p[3]
     elif p[2] == '>':
@@ -241,6 +231,7 @@ def p_a_expr(p):
               | SUB a_expr
               | LITERAL_STR'''
     try:
+    # if len(p) > 1:
         if p[2] == '*':
             p[0] = p[1] * p[3]
         elif p[2] == '/':
@@ -249,12 +240,14 @@ def p_a_expr(p):
             p[0] = p[1] + p[3]
         elif p[2] == '-':
             p[0] = p[1] - p[3]
-    except:
-        if p[1] == '(':
-            p[0] = p[1]
-        elif p[1] == '-':
-            p[0] = p[2] * -1
-        else: p[0] = p[1]
+    except IndexError:
+        p[0] = p[1]
+        print(p[0])
+        # if p[1] == '(':
+        #     p[0] = p[1]
+        # elif p[1] == '-':
+        #     p[0] = p[2] * -1
+        
 
 def p_a_op(p):
     '''a_op : ADD

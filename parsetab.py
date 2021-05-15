@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ADD ASSIGN BEGIN COMMA DIV DO DT_FLOAT DT_INT ELSE END FLOAT GEQ GT ID IF INTEGER LBRACK LEQ LITERAL_STR LPAR LT MUL RBRACK READ REPEAT RPAR SEMICOLON SUB THEN UNTIL WHILE WRITEprogram : stmt_list SEMICOLONstmt_list : stmt_list SEMICOLON stmt\n                 | stmtstmt : assignment\n            | read\n            | write\n            | declaration\n            | construct_while\n            | construct_repeat\n            | construct_if\n            | blockblock : BEGIN stmt_list ENDconstruct_while : WHILE LPAR l_expr RPAR DO blockconstruct_repeat : REPEAT stmt_list UNTIL LPAR l_expr RPARconstruct_if : IF LPAR a_expr oprel a_expr RPAR stmt construct_elseconstruct_else : \n                      | ELSE stmtl_expr : a_expr oprel a_exproprel : LT\n             | GT\n             | LEQ\n             | GEQassignment : ID arr_idx ASSIGN a_expr\n                  | ID ASSIGN a_exprdeclaration : datatype ID arr_sizearr_size : LBRACK a_expr RBRACK\n                | datatype : DT_INT\n                | DT_FLOATa_expr : a_expr a_op a_expr\n              | varref\n              | INTEGER\n              | FLOAT\n              | LPAR a_expr RPAR\n              | SUB a_expr\n              | LITERAL_STRa_op : ADD\n            | SUB\n            | MUL\n            | DIVvarref : ID arr_idxarr_idx : LBRACK a_expr RBRACKread : READ varlistwrite : WRITE expr_listvarlist : varlist COMMA varref\n               | varrefexpr_list : expr_list COMMA a_expr\n                 | a_expr'
+_lr_signature = 'ADD ASSIGN BEGIN COMMA DIV DO DT_FLOAT DT_INT ELSE END FLOAT GEQ GT ID IF INTEGER LBRACK LEQ LITERAL_STR LPAR LT MUL RBRACK READ REPEAT RPAR SEMICOLON SUB THEN UNTIL WHILE WRITEprogram : stmt_list SEMICOLONstmt_list : stmt_list SEMICOLON stmt\n                 | stmtstmt : assignment\n            | read\n            | write\n            | declaration\n            | construct_while\n            | construct_repeat\n            | construct_if\n            | blockblock : BEGIN stmt_list ENDconstruct_while : WHILE LPAR l_expr RPAR DO blockconstruct_repeat : REPEAT stmt_list UNTIL LPAR l_expr RPARconstruct_if : IF LPAR l_expr RPAR stmt construct_elseconstruct_else : \n                      | ELSE stmtl_expr : a_expr oprel a_exproprel : LT\n             | GT\n             | LEQ\n             | GEQassignment : ID arr_idx ASSIGN a_expr\n                  | ID ASSIGN a_exprdeclaration : datatype ID arr_sizearr_size : LBRACK a_expr RBRACK\n                | datatype : DT_INT\n                | DT_FLOATa_expr : a_expr a_op a_expr\n              | varref\n              | INTEGER\n              | FLOAT\n              | LPAR a_expr RPAR\n              | SUB a_expr\n              | LITERAL_STRa_op : ADD\n            | SUB\n            | MUL\n            | DIVvarref : ID arr_idxarr_idx : LBRACK a_expr RBRACKread : READ varlistwrite : WRITE expr_listvarlist : varlist COMMA varref\n               | varrefexpr_list : expr_list COMMA a_expr\n                 | a_expr'
     
-_lr_action_items = {'ID':([0,13,14,15,17,19,20,21,22,24,25,34,35,38,40,43,46,48,49,50,51,52,53,57,61,72,73,74,75,76,77,78,86,89,],[12,28,28,37,12,12,-28,-29,12,28,28,28,28,28,28,28,28,28,28,-37,-38,-39,-40,28,12,28,-19,-20,-21,-22,28,28,12,12,]),'READ':([0,17,19,22,61,86,89,],[13,13,13,13,13,13,13,]),'WRITE':([0,17,19,22,61,86,89,],[14,14,14,14,14,14,14,]),'WHILE':([0,17,19,22,61,86,89,],[16,16,16,16,16,16,16,]),'REPEAT':([0,17,19,22,61,86,89,],[17,17,17,17,17,17,17,]),'IF':([0,17,19,22,61,86,89,],[18,18,18,18,18,18,18,]),'BEGIN':([0,17,19,22,61,80,86,89,],[19,19,19,19,19,19,19,19,]),'DT_INT':([0,17,19,22,61,86,89,],[20,20,20,20,20,20,20,]),'DT_FLOAT':([0,17,19,22,61,86,89,],[21,21,21,21,21,21,21,]),'$end':([1,22,],[0,-1,]),'SEMICOLON':([2,3,4,5,6,7,8,9,10,11,26,27,29,30,31,32,33,36,37,39,41,42,44,47,55,56,63,64,65,66,67,68,69,79,84,85,87,88,90,],[22,-3,-4,-5,-6,-7,-8,-9,-10,-11,-43,-46,-44,-48,-31,-32,-33,-36,-27,61,61,-2,-24,-41,-35,-25,-12,-23,-42,-45,-47,-30,-34,-26,-13,-14,-16,-15,-17,]),'UNTIL':([3,4,5,6,7,8,9,10,11,26,27,29,30,31,32,33,36,37,39,42,44,47,55,56,63,64,65,66,67,68,69,79,84,85,87,88,90,],[-3,-4,-5,-6,-7,-8,-9,-10,-11,-43,-46,-44,-48,-31,-32,-33,-36,-27,60,-2,-24,-41,-35,-25,-12,-23,-42,-45,-47,-30,-34,-26,-13,-14,-16,-15,-17,]),'END':([3,4,5,6,7,8,9,10,11,26,27,29,30,31,32,33,36,37,41,42,44,47,55,56,63,64,65,66,67,68,69,79,84,85,87,88,90,],[-3,-4,-5,-6,-7,-8,-9,-10,-11,-43,-46,-44,-48,-31,-32,-33,-36,-27,63,-2,-24,-41,-35,-25,-12,-23,-42,-45,-47,-30,-34,-26,-13,-14,-16,-15,-17,]),'ELSE':([4,5,6,7,8,9,10,11,26,27,29,30,31,32,33,36,37,44,47,55,56,63,64,65,66,67,68,69,79,84,85,87,88,90,],[-4,-5,-6,-7,-8,-9,-10,-11,-43,-46,-44,-48,-31,-32,-33,-36,-27,-24,-41,-35,-25,-12,-23,-42,-45,-47,-30,-34,-26,-13,-14,89,-15,-17,]),'ASSIGN':([12,23,65,],[24,43,-42,]),'LBRACK':([12,28,37,],[25,25,57,]),'INTEGER':([14,24,25,34,35,38,40,43,48,49,50,51,52,53,57,72,73,74,75,76,77,78,],[32,32,32,32,32,32,32,32,32,32,-37,-38,-39,-40,32,32,-19,-20,-21,-22,32,32,]),'FLOAT':([14,24,25,34,35,38,40,43,48,49,50,51,52,53,57,72,73,74,75,76,77,78,],[33,33,33,33,33,33,33,33,33,33,-37,-38,-39,-40,33,33,-19,-20,-21,-22,33,33,]),'LPAR':([14,16,18,24,25,34,35,38,40,43,48,49,50,51,52,53,57,60,72,73,74,75,76,77,78,],[34,38,40,34,34,34,34,34,34,34,34,34,-37,-38,-39,-40,34,77,34,-19,-20,-21,-22,34,34,]),'SUB':([14,24,25,30,31,32,33,34,35,36,38,40,43,44,45,47,48,49,50,51,52,53,54,55,57,59,62,64,65,67,68,69,70,72,73,74,75,76,77,78,81,83,],[35,35,35,51,-31,-32,-33,35,35,-36,35,35,35,51,51,-41,35,35,-37,-38,-39,-40,51,51,35,51,51,51,-42,51,51,-34,51,35,-19,-20,-21,-22,35,35,51,51,]),'LITERAL_STR':([14,24,25,34,35,38,40,43,48,49,50,51,52,53,57,72,73,74,75,76,77,78,],[36,36,36,36,36,36,36,36,36,36,-37,-38,-39,-40,36,36,-19,-20,-21,-22,36,36,]),'COMMA':([26,27,29,30,31,32,33,36,47,55,65,66,67,68,69,],[46,-46,48,-48,-31,-32,-33,-36,-41,-35,-42,-45,-47,-30,-34,]),'ADD':([30,31,32,33,36,44,45,47,54,55,59,62,64,65,67,68,69,70,81,83,],[50,-31,-32,-33,-36,50,50,-41,50,50,50,50,50,-42,50,50,-34,50,50,50,]),'MUL':([30,31,32,33,36,44,45,47,54,55,59,62,64,65,67,68,69,70,81,83,],[52,-31,-32,-33,-36,52,52,-41,52,52,52,52,52,-42,52,52,-34,52,52,52,]),'DIV':([30,31,32,33,36,44,45,47,54,55,59,62,64,65,67,68,69,70,81,83,],[53,-31,-32,-33,-36,53,53,-41,53,53,53,53,53,-42,53,53,-34,53,53,53,]),'RBRACK':([31,32,33,36,45,47,55,65,68,69,70,],[-31,-32,-33,-36,65,-41,-35,-42,-30,-34,79,]),'RPAR':([31,32,33,36,47,54,55,58,65,68,69,81,82,83,],[-31,-32,-33,-36,-41,69,-35,71,-42,-30,-34,-18,85,86,]),'LT':([31,32,33,36,47,55,59,62,65,68,69,],[-31,-32,-33,-36,-41,-35,73,73,-42,-30,-34,]),'GT':([31,32,33,36,47,55,59,62,65,68,69,],[-31,-32,-33,-36,-41,-35,74,74,-42,-30,-34,]),'LEQ':([31,32,33,36,47,55,59,62,65,68,69,],[-31,-32,-33,-36,-41,-35,75,75,-42,-30,-34,]),'GEQ':([31,32,33,36,47,55,59,62,65,68,69,],[-31,-32,-33,-36,-41,-35,76,76,-42,-30,-34,]),'DO':([71,],[80,]),}
+_lr_action_items = {'ID':([0,13,14,15,17,19,20,21,22,24,25,34,35,38,40,43,46,48,49,50,51,52,53,57,61,72,73,74,75,76,77,78,87,],[12,28,28,37,12,12,-28,-29,12,28,28,28,28,28,28,28,28,28,28,-37,-38,-39,-40,28,12,28,-19,-20,-21,-22,28,12,12,]),'READ':([0,17,19,22,61,78,87,],[13,13,13,13,13,13,13,]),'WRITE':([0,17,19,22,61,78,87,],[14,14,14,14,14,14,14,]),'WHILE':([0,17,19,22,61,78,87,],[16,16,16,16,16,16,16,]),'REPEAT':([0,17,19,22,61,78,87,],[17,17,17,17,17,17,17,]),'IF':([0,17,19,22,61,78,87,],[18,18,18,18,18,18,18,]),'BEGIN':([0,17,19,22,61,78,80,87,],[19,19,19,19,19,19,19,19,]),'DT_INT':([0,17,19,22,61,78,87,],[20,20,20,20,20,20,20,]),'DT_FLOAT':([0,17,19,22,61,78,87,],[21,21,21,21,21,21,21,]),'$end':([1,22,],[0,-1,]),'SEMICOLON':([2,3,4,5,6,7,8,9,10,11,26,27,29,30,31,32,33,36,37,39,41,42,44,47,55,56,63,64,65,66,67,68,69,79,83,84,85,86,88,],[22,-3,-4,-5,-6,-7,-8,-9,-10,-11,-43,-46,-44,-48,-31,-32,-33,-36,-27,61,61,-2,-24,-41,-35,-25,-12,-23,-42,-45,-47,-30,-34,-26,-16,-13,-14,-15,-17,]),'UNTIL':([3,4,5,6,7,8,9,10,11,26,27,29,30,31,32,33,36,37,39,42,44,47,55,56,63,64,65,66,67,68,69,79,83,84,85,86,88,],[-3,-4,-5,-6,-7,-8,-9,-10,-11,-43,-46,-44,-48,-31,-32,-33,-36,-27,60,-2,-24,-41,-35,-25,-12,-23,-42,-45,-47,-30,-34,-26,-16,-13,-14,-15,-17,]),'END':([3,4,5,6,7,8,9,10,11,26,27,29,30,31,32,33,36,37,41,42,44,47,55,56,63,64,65,66,67,68,69,79,83,84,85,86,88,],[-3,-4,-5,-6,-7,-8,-9,-10,-11,-43,-46,-44,-48,-31,-32,-33,-36,-27,63,-2,-24,-41,-35,-25,-12,-23,-42,-45,-47,-30,-34,-26,-16,-13,-14,-15,-17,]),'ELSE':([4,5,6,7,8,9,10,11,26,27,29,30,31,32,33,36,37,44,47,55,56,63,64,65,66,67,68,69,79,83,84,85,86,88,],[-4,-5,-6,-7,-8,-9,-10,-11,-43,-46,-44,-48,-31,-32,-33,-36,-27,-24,-41,-35,-25,-12,-23,-42,-45,-47,-30,-34,-26,87,-13,-14,-15,-17,]),'ASSIGN':([12,23,65,],[24,43,-42,]),'LBRACK':([12,28,37,],[25,25,57,]),'INTEGER':([14,24,25,34,35,38,40,43,48,49,50,51,52,53,57,72,73,74,75,76,77,],[32,32,32,32,32,32,32,32,32,32,-37,-38,-39,-40,32,32,-19,-20,-21,-22,32,]),'FLOAT':([14,24,25,34,35,38,40,43,48,49,50,51,52,53,57,72,73,74,75,76,77,],[33,33,33,33,33,33,33,33,33,33,-37,-38,-39,-40,33,33,-19,-20,-21,-22,33,]),'LPAR':([14,16,18,24,25,34,35,38,40,43,48,49,50,51,52,53,57,60,72,73,74,75,76,77,],[34,38,40,34,34,34,34,34,34,34,34,34,-37,-38,-39,-40,34,77,34,-19,-20,-21,-22,34,]),'SUB':([14,24,25,30,31,32,33,34,35,36,38,40,43,44,45,47,48,49,50,51,52,53,54,55,57,59,64,65,67,68,69,70,72,73,74,75,76,77,81,],[35,35,35,51,-31,-32,-33,35,35,-36,35,35,35,51,51,-41,35,35,-37,-38,-39,-40,51,51,35,51,51,-42,51,51,-34,51,35,-19,-20,-21,-22,35,51,]),'LITERAL_STR':([14,24,25,34,35,38,40,43,48,49,50,51,52,53,57,72,73,74,75,76,77,],[36,36,36,36,36,36,36,36,36,36,-37,-38,-39,-40,36,36,-19,-20,-21,-22,36,]),'COMMA':([26,27,29,30,31,32,33,36,47,55,65,66,67,68,69,],[46,-46,48,-48,-31,-32,-33,-36,-41,-35,-42,-45,-47,-30,-34,]),'ADD':([30,31,32,33,36,44,45,47,54,55,59,64,65,67,68,69,70,81,],[50,-31,-32,-33,-36,50,50,-41,50,50,50,50,-42,50,50,-34,50,50,]),'MUL':([30,31,32,33,36,44,45,47,54,55,59,64,65,67,68,69,70,81,],[52,-31,-32,-33,-36,52,52,-41,52,52,52,52,-42,52,52,-34,52,52,]),'DIV':([30,31,32,33,36,44,45,47,54,55,59,64,65,67,68,69,70,81,],[53,-31,-32,-33,-36,53,53,-41,53,53,53,53,-42,53,53,-34,53,53,]),'RBRACK':([31,32,33,36,45,47,55,65,68,69,70,],[-31,-32,-33,-36,65,-41,-35,-42,-30,-34,79,]),'RPAR':([31,32,33,36,47,54,55,58,62,65,68,69,81,82,],[-31,-32,-33,-36,-41,69,-35,71,78,-42,-30,-34,-18,85,]),'LT':([31,32,33,36,47,55,59,65,68,69,],[-31,-32,-33,-36,-41,-35,73,-42,-30,-34,]),'GT':([31,32,33,36,47,55,59,65,68,69,],[-31,-32,-33,-36,-41,-35,74,-42,-30,-34,]),'LEQ':([31,32,33,36,47,55,59,65,68,69,],[-31,-32,-33,-36,-41,-35,75,-42,-30,-34,]),'GEQ':([31,32,33,36,47,55,59,65,68,69,],[-31,-32,-33,-36,-41,-35,76,-42,-30,-34,]),'DO':([71,],[80,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'stmt_list':([0,17,19,],[2,39,41,]),'stmt':([0,17,19,22,61,86,89,],[3,3,3,42,42,87,90,]),'assignment':([0,17,19,22,61,86,89,],[4,4,4,4,4,4,4,]),'read':([0,17,19,22,61,86,89,],[5,5,5,5,5,5,5,]),'write':([0,17,19,22,61,86,89,],[6,6,6,6,6,6,6,]),'declaration':([0,17,19,22,61,86,89,],[7,7,7,7,7,7,7,]),'construct_while':([0,17,19,22,61,86,89,],[8,8,8,8,8,8,8,]),'construct_repeat':([0,17,19,22,61,86,89,],[9,9,9,9,9,9,9,]),'construct_if':([0,17,19,22,61,86,89,],[10,10,10,10,10,10,10,]),'block':([0,17,19,22,61,80,86,89,],[11,11,11,11,11,84,11,11,]),'datatype':([0,17,19,22,61,86,89,],[15,15,15,15,15,15,15,]),'arr_idx':([12,28,],[23,47,]),'varlist':([13,],[26,]),'varref':([13,14,24,25,34,35,38,40,43,46,48,49,57,72,77,78,],[27,31,31,31,31,31,31,31,31,66,31,31,31,31,31,31,]),'expr_list':([14,],[29,]),'a_expr':([14,24,25,34,35,38,40,43,48,49,57,72,77,78,],[30,44,45,54,55,59,62,64,67,68,70,81,59,83,]),'a_op':([30,44,45,54,55,59,62,64,67,68,70,81,83,],[49,49,49,49,49,49,49,49,49,49,49,49,49,]),'arr_size':([37,],[56,]),'l_expr':([38,77,],[58,82,]),'oprel':([59,62,],[72,78,]),'construct_else':([87,],[88,]),}
+_lr_goto_items = {'program':([0,],[1,]),'stmt_list':([0,17,19,],[2,39,41,]),'stmt':([0,17,19,22,61,78,87,],[3,3,3,42,42,83,88,]),'assignment':([0,17,19,22,61,78,87,],[4,4,4,4,4,4,4,]),'read':([0,17,19,22,61,78,87,],[5,5,5,5,5,5,5,]),'write':([0,17,19,22,61,78,87,],[6,6,6,6,6,6,6,]),'declaration':([0,17,19,22,61,78,87,],[7,7,7,7,7,7,7,]),'construct_while':([0,17,19,22,61,78,87,],[8,8,8,8,8,8,8,]),'construct_repeat':([0,17,19,22,61,78,87,],[9,9,9,9,9,9,9,]),'construct_if':([0,17,19,22,61,78,87,],[10,10,10,10,10,10,10,]),'block':([0,17,19,22,61,78,80,87,],[11,11,11,11,11,11,84,11,]),'datatype':([0,17,19,22,61,78,87,],[15,15,15,15,15,15,15,]),'arr_idx':([12,28,],[23,47,]),'varlist':([13,],[26,]),'varref':([13,14,24,25,34,35,38,40,43,46,48,49,57,72,77,],[27,31,31,31,31,31,31,31,31,66,31,31,31,31,31,]),'expr_list':([14,],[29,]),'a_expr':([14,24,25,34,35,38,40,43,48,49,57,72,77,],[30,44,45,54,55,59,59,64,67,68,70,81,59,]),'a_op':([30,44,45,54,55,59,64,67,68,70,81,],[49,49,49,49,49,49,49,49,49,49,49,]),'arr_size':([37,],[56,]),'l_expr':([38,40,77,],[58,62,82,]),'oprel':([59,],[72,]),'construct_else':([83,],[86,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -41,38 +41,38 @@ _lr_productions = [
   ('block -> BEGIN stmt_list END','block',3,'p_block','parser.py',151),
   ('construct_while -> WHILE LPAR l_expr RPAR DO block','construct_while',6,'p_construct_while','parser.py',155),
   ('construct_repeat -> REPEAT stmt_list UNTIL LPAR l_expr RPAR','construct_repeat',6,'p_construct_repeat','parser.py',160),
-  ('construct_if -> IF LPAR a_expr oprel a_expr RPAR stmt construct_else','construct_if',8,'p_construct_if','parser.py',163),
-  ('construct_else -> <empty>','construct_else',0,'p_construct_else','parser.py',182),
-  ('construct_else -> ELSE stmt','construct_else',2,'p_construct_else','parser.py',183),
-  ('l_expr -> a_expr oprel a_expr','l_expr',3,'p_l_expr','parser.py',189),
-  ('oprel -> LT','oprel',1,'p_oprel','parser.py',201),
-  ('oprel -> GT','oprel',1,'p_oprel','parser.py',202),
-  ('oprel -> LEQ','oprel',1,'p_oprel','parser.py',203),
-  ('oprel -> GEQ','oprel',1,'p_oprel','parser.py',204),
-  ('assignment -> ID arr_idx ASSIGN a_expr','assignment',4,'p_assignment','parser.py',208),
-  ('assignment -> ID ASSIGN a_expr','assignment',3,'p_assignment','parser.py',209),
-  ('declaration -> datatype ID arr_size','declaration',3,'p_declaration','parser.py',216),
-  ('arr_size -> LBRACK a_expr RBRACK','arr_size',3,'p_arr_size','parser.py',223),
-  ('arr_size -> <empty>','arr_size',0,'p_arr_size','parser.py',224),
-  ('datatype -> DT_INT','datatype',1,'p_datatype','parser.py',231),
-  ('datatype -> DT_FLOAT','datatype',1,'p_datatype','parser.py',232),
-  ('a_expr -> a_expr a_op a_expr','a_expr',3,'p_a_expr','parser.py',236),
-  ('a_expr -> varref','a_expr',1,'p_a_expr','parser.py',237),
-  ('a_expr -> INTEGER','a_expr',1,'p_a_expr','parser.py',238),
-  ('a_expr -> FLOAT','a_expr',1,'p_a_expr','parser.py',239),
-  ('a_expr -> LPAR a_expr RPAR','a_expr',3,'p_a_expr','parser.py',240),
-  ('a_expr -> SUB a_expr','a_expr',2,'p_a_expr','parser.py',241),
-  ('a_expr -> LITERAL_STR','a_expr',1,'p_a_expr','parser.py',242),
-  ('a_op -> ADD','a_op',1,'p_a_op','parser.py',260),
-  ('a_op -> SUB','a_op',1,'p_a_op','parser.py',261),
-  ('a_op -> MUL','a_op',1,'p_a_op','parser.py',262),
-  ('a_op -> DIV','a_op',1,'p_a_op','parser.py',263),
-  ('varref -> ID arr_idx','varref',2,'p_varref','parser.py',267),
-  ('arr_idx -> LBRACK a_expr RBRACK','arr_idx',3,'p_arr_idx','parser.py',271),
-  ('read -> READ varlist','read',2,'p_read','parser.py',275),
-  ('write -> WRITE expr_list','write',2,'p_write','parser.py',278),
-  ('varlist -> varlist COMMA varref','varlist',3,'p_varlist','parser.py',281),
-  ('varlist -> varref','varlist',1,'p_varlist','parser.py',282),
-  ('expr_list -> expr_list COMMA a_expr','expr_list',3,'p_expr_list','parser.py',285),
-  ('expr_list -> a_expr','expr_list',1,'p_expr_list','parser.py',286),
+  ('construct_if -> IF LPAR l_expr RPAR stmt construct_else','construct_if',6,'p_construct_if','parser.py',163),
+  ('construct_else -> <empty>','construct_else',0,'p_construct_else','parser.py',173),
+  ('construct_else -> ELSE stmt','construct_else',2,'p_construct_else','parser.py',174),
+  ('l_expr -> a_expr oprel a_expr','l_expr',3,'p_l_expr','parser.py',180),
+  ('oprel -> LT','oprel',1,'p_oprel','parser.py',191),
+  ('oprel -> GT','oprel',1,'p_oprel','parser.py',192),
+  ('oprel -> LEQ','oprel',1,'p_oprel','parser.py',193),
+  ('oprel -> GEQ','oprel',1,'p_oprel','parser.py',194),
+  ('assignment -> ID arr_idx ASSIGN a_expr','assignment',4,'p_assignment','parser.py',198),
+  ('assignment -> ID ASSIGN a_expr','assignment',3,'p_assignment','parser.py',199),
+  ('declaration -> datatype ID arr_size','declaration',3,'p_declaration','parser.py',206),
+  ('arr_size -> LBRACK a_expr RBRACK','arr_size',3,'p_arr_size','parser.py',213),
+  ('arr_size -> <empty>','arr_size',0,'p_arr_size','parser.py',214),
+  ('datatype -> DT_INT','datatype',1,'p_datatype','parser.py',221),
+  ('datatype -> DT_FLOAT','datatype',1,'p_datatype','parser.py',222),
+  ('a_expr -> a_expr a_op a_expr','a_expr',3,'p_a_expr','parser.py',226),
+  ('a_expr -> varref','a_expr',1,'p_a_expr','parser.py',227),
+  ('a_expr -> INTEGER','a_expr',1,'p_a_expr','parser.py',228),
+  ('a_expr -> FLOAT','a_expr',1,'p_a_expr','parser.py',229),
+  ('a_expr -> LPAR a_expr RPAR','a_expr',3,'p_a_expr','parser.py',230),
+  ('a_expr -> SUB a_expr','a_expr',2,'p_a_expr','parser.py',231),
+  ('a_expr -> LITERAL_STR','a_expr',1,'p_a_expr','parser.py',232),
+  ('a_op -> ADD','a_op',1,'p_a_op','parser.py',253),
+  ('a_op -> SUB','a_op',1,'p_a_op','parser.py',254),
+  ('a_op -> MUL','a_op',1,'p_a_op','parser.py',255),
+  ('a_op -> DIV','a_op',1,'p_a_op','parser.py',256),
+  ('varref -> ID arr_idx','varref',2,'p_varref','parser.py',260),
+  ('arr_idx -> LBRACK a_expr RBRACK','arr_idx',3,'p_arr_idx','parser.py',264),
+  ('read -> READ varlist','read',2,'p_read','parser.py',268),
+  ('write -> WRITE expr_list','write',2,'p_write','parser.py',271),
+  ('varlist -> varlist COMMA varref','varlist',3,'p_varlist','parser.py',274),
+  ('varlist -> varref','varlist',1,'p_varlist','parser.py',275),
+  ('expr_list -> expr_list COMMA a_expr','expr_list',3,'p_expr_list','parser.py',278),
+  ('expr_list -> a_expr','expr_list',1,'p_expr_list','parser.py',279),
 ]

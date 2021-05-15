@@ -21,7 +21,7 @@ Rule 11    stmt -> block
 Rule 12    block -> BEGIN stmt_list END
 Rule 13    construct_while -> WHILE LPAR l_expr RPAR DO block
 Rule 14    construct_repeat -> REPEAT stmt_list UNTIL LPAR l_expr RPAR
-Rule 15    construct_if -> IF LPAR a_expr oprel a_expr RPAR stmt construct_else
+Rule 15    construct_if -> IF LPAR l_expr RPAR stmt construct_else
 Rule 16    construct_else -> <empty>
 Rule 17    construct_else -> ELSE stmt
 Rule 18    l_expr -> a_expr oprel a_expr
@@ -94,7 +94,7 @@ error                :
 
 Nonterminals, with rules where they appear
 
-a_expr               : 15 15 18 18 23 24 26 30 30 34 35 42 47 48
+a_expr               : 18 18 23 24 26 30 30 34 35 42 47 48
 a_op                 : 30
 arr_idx              : 23 41
 arr_size             : 25
@@ -107,8 +107,8 @@ construct_while      : 8
 datatype             : 25
 declaration          : 7
 expr_list            : 44 47
-l_expr               : 13 14
-oprel                : 15 18
+l_expr               : 13 14 15
+oprel                : 18
 program              : 0
 read                 : 5
 stmt                 : 2 3 15 17
@@ -140,7 +140,7 @@ state 0
     (25) declaration -> . datatype ID arr_size
     (13) construct_while -> . WHILE LPAR l_expr RPAR DO block
     (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
-    (15) construct_if -> . IF LPAR a_expr oprel a_expr RPAR stmt construct_else
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
     (12) block -> . BEGIN stmt_list END
     (28) datatype -> . DT_INT
     (29) datatype -> . DT_FLOAT
@@ -353,7 +353,7 @@ state 17
     (25) declaration -> . datatype ID arr_size
     (13) construct_while -> . WHILE LPAR l_expr RPAR DO block
     (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
-    (15) construct_if -> . IF LPAR a_expr oprel a_expr RPAR stmt construct_else
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
     (12) block -> . BEGIN stmt_list END
     (28) datatype -> . DT_INT
     (29) datatype -> . DT_FLOAT
@@ -382,7 +382,7 @@ state 17
 
 state 18
 
-    (15) construct_if -> IF . LPAR a_expr oprel a_expr RPAR stmt construct_else
+    (15) construct_if -> IF . LPAR l_expr RPAR stmt construct_else
 
     LPAR            shift and go to state 40
 
@@ -407,7 +407,7 @@ state 19
     (25) declaration -> . datatype ID arr_size
     (13) construct_while -> . WHILE LPAR l_expr RPAR DO block
     (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
-    (15) construct_if -> . IF LPAR a_expr oprel a_expr RPAR stmt construct_else
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
     (12) block -> . BEGIN stmt_list END
     (28) datatype -> . DT_INT
     (29) datatype -> . DT_FLOAT
@@ -467,7 +467,7 @@ state 22
     (25) declaration -> . datatype ID arr_size
     (13) construct_while -> . WHILE LPAR l_expr RPAR DO block
     (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
-    (15) construct_if -> . IF LPAR a_expr oprel a_expr RPAR stmt construct_else
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
     (12) block -> . BEGIN stmt_list END
     (28) datatype -> . DT_INT
     (29) datatype -> . DT_FLOAT
@@ -787,7 +787,8 @@ state 39
 
 state 40
 
-    (15) construct_if -> IF LPAR . a_expr oprel a_expr RPAR stmt construct_else
+    (15) construct_if -> IF LPAR . l_expr RPAR stmt construct_else
+    (18) l_expr -> . a_expr oprel a_expr
     (30) a_expr -> . a_expr a_op a_expr
     (31) a_expr -> . varref
     (32) a_expr -> . INTEGER
@@ -804,7 +805,8 @@ state 40
     LITERAL_STR     shift and go to state 36
     ID              shift and go to state 28
 
-    a_expr                         shift and go to state 62
+    l_expr                         shift and go to state 62
+    a_expr                         shift and go to state 59
     varref                         shift and go to state 31
 
 state 41
@@ -1148,7 +1150,7 @@ state 61
     (25) declaration -> . datatype ID arr_size
     (13) construct_while -> . WHILE LPAR l_expr RPAR DO block
     (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
-    (15) construct_if -> . IF LPAR a_expr oprel a_expr RPAR stmt construct_else
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
     (12) block -> . BEGIN stmt_list END
     (28) datatype -> . DT_INT
     (29) datatype -> . DT_FLOAT
@@ -1176,28 +1178,10 @@ state 61
 
 state 62
 
-    (15) construct_if -> IF LPAR a_expr . oprel a_expr RPAR stmt construct_else
-    (30) a_expr -> a_expr . a_op a_expr
-    (19) oprel -> . LT
-    (20) oprel -> . GT
-    (21) oprel -> . LEQ
-    (22) oprel -> . GEQ
-    (37) a_op -> . ADD
-    (38) a_op -> . SUB
-    (39) a_op -> . MUL
-    (40) a_op -> . DIV
+    (15) construct_if -> IF LPAR l_expr . RPAR stmt construct_else
 
-    LT              shift and go to state 73
-    GT              shift and go to state 74
-    LEQ             shift and go to state 75
-    GEQ             shift and go to state 76
-    ADD             shift and go to state 50
-    SUB             shift and go to state 51
-    MUL             shift and go to state 52
-    DIV             shift and go to state 53
+    RPAR            shift and go to state 78
 
-    oprel                          shift and go to state 78
-    a_op                           shift and go to state 49
 
 state 63
 
@@ -1460,25 +1444,47 @@ state 77
 
 state 78
 
-    (15) construct_if -> IF LPAR a_expr oprel . a_expr RPAR stmt construct_else
-    (30) a_expr -> . a_expr a_op a_expr
-    (31) a_expr -> . varref
-    (32) a_expr -> . INTEGER
-    (33) a_expr -> . FLOAT
-    (34) a_expr -> . LPAR a_expr RPAR
-    (35) a_expr -> . SUB a_expr
-    (36) a_expr -> . LITERAL_STR
-    (41) varref -> . ID arr_idx
+    (15) construct_if -> IF LPAR l_expr RPAR . stmt construct_else
+    (4) stmt -> . assignment
+    (5) stmt -> . read
+    (6) stmt -> . write
+    (7) stmt -> . declaration
+    (8) stmt -> . construct_while
+    (9) stmt -> . construct_repeat
+    (10) stmt -> . construct_if
+    (11) stmt -> . block
+    (23) assignment -> . ID arr_idx ASSIGN a_expr
+    (24) assignment -> . ID ASSIGN a_expr
+    (43) read -> . READ varlist
+    (44) write -> . WRITE expr_list
+    (25) declaration -> . datatype ID arr_size
+    (13) construct_while -> . WHILE LPAR l_expr RPAR DO block
+    (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
+    (12) block -> . BEGIN stmt_list END
+    (28) datatype -> . DT_INT
+    (29) datatype -> . DT_FLOAT
 
-    INTEGER         shift and go to state 32
-    FLOAT           shift and go to state 33
-    LPAR            shift and go to state 34
-    SUB             shift and go to state 35
-    LITERAL_STR     shift and go to state 36
-    ID              shift and go to state 28
+    ID              shift and go to state 12
+    READ            shift and go to state 13
+    WRITE           shift and go to state 14
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    IF              shift and go to state 18
+    BEGIN           shift and go to state 19
+    DT_INT          shift and go to state 20
+    DT_FLOAT        shift and go to state 21
 
-    a_expr                         shift and go to state 83
-    varref                         shift and go to state 31
+    stmt                           shift and go to state 83
+    assignment                     shift and go to state 4
+    read                           shift and go to state 5
+    write                          shift and go to state 6
+    declaration                    shift and go to state 7
+    construct_while                shift and go to state 8
+    construct_repeat               shift and go to state 9
+    construct_if                   shift and go to state 10
+    block                          shift and go to state 11
+    datatype                       shift and go to state 15
 
 state 79
 
@@ -1525,20 +1531,19 @@ state 82
 
 state 83
 
-    (15) construct_if -> IF LPAR a_expr oprel a_expr . RPAR stmt construct_else
-    (30) a_expr -> a_expr . a_op a_expr
-    (37) a_op -> . ADD
-    (38) a_op -> . SUB
-    (39) a_op -> . MUL
-    (40) a_op -> . DIV
+    (15) construct_if -> IF LPAR l_expr RPAR stmt . construct_else
+    (16) construct_else -> .
+    (17) construct_else -> . ELSE stmt
 
-    RPAR            shift and go to state 86
-    ADD             shift and go to state 50
-    SUB             shift and go to state 51
-    MUL             shift and go to state 52
-    DIV             shift and go to state 53
+  ! shift/reduce conflict for ELSE resolved as shift
+    SEMICOLON       reduce using rule 16 (construct_else -> .)
+    UNTIL           reduce using rule 16 (construct_else -> .)
+    END             reduce using rule 16 (construct_else -> .)
+    ELSE            shift and go to state 87
 
-    a_op                           shift and go to state 49
+  ! ELSE            [ reduce using rule 16 (construct_else -> .) ]
+
+    construct_else                 shift and go to state 86
 
 state 84
 
@@ -1562,75 +1567,15 @@ state 85
 
 state 86
 
-    (15) construct_if -> IF LPAR a_expr oprel a_expr RPAR . stmt construct_else
-    (4) stmt -> . assignment
-    (5) stmt -> . read
-    (6) stmt -> . write
-    (7) stmt -> . declaration
-    (8) stmt -> . construct_while
-    (9) stmt -> . construct_repeat
-    (10) stmt -> . construct_if
-    (11) stmt -> . block
-    (23) assignment -> . ID arr_idx ASSIGN a_expr
-    (24) assignment -> . ID ASSIGN a_expr
-    (43) read -> . READ varlist
-    (44) write -> . WRITE expr_list
-    (25) declaration -> . datatype ID arr_size
-    (13) construct_while -> . WHILE LPAR l_expr RPAR DO block
-    (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
-    (15) construct_if -> . IF LPAR a_expr oprel a_expr RPAR stmt construct_else
-    (12) block -> . BEGIN stmt_list END
-    (28) datatype -> . DT_INT
-    (29) datatype -> . DT_FLOAT
+    (15) construct_if -> IF LPAR l_expr RPAR stmt construct_else .
 
-    ID              shift and go to state 12
-    READ            shift and go to state 13
-    WRITE           shift and go to state 14
-    WHILE           shift and go to state 16
-    REPEAT          shift and go to state 17
-    IF              shift and go to state 18
-    BEGIN           shift and go to state 19
-    DT_INT          shift and go to state 20
-    DT_FLOAT        shift and go to state 21
+    SEMICOLON       reduce using rule 15 (construct_if -> IF LPAR l_expr RPAR stmt construct_else .)
+    UNTIL           reduce using rule 15 (construct_if -> IF LPAR l_expr RPAR stmt construct_else .)
+    END             reduce using rule 15 (construct_if -> IF LPAR l_expr RPAR stmt construct_else .)
+    ELSE            reduce using rule 15 (construct_if -> IF LPAR l_expr RPAR stmt construct_else .)
 
-    stmt                           shift and go to state 87
-    assignment                     shift and go to state 4
-    read                           shift and go to state 5
-    write                          shift and go to state 6
-    declaration                    shift and go to state 7
-    construct_while                shift and go to state 8
-    construct_repeat               shift and go to state 9
-    construct_if                   shift and go to state 10
-    block                          shift and go to state 11
-    datatype                       shift and go to state 15
 
 state 87
-
-    (15) construct_if -> IF LPAR a_expr oprel a_expr RPAR stmt . construct_else
-    (16) construct_else -> .
-    (17) construct_else -> . ELSE stmt
-
-  ! shift/reduce conflict for ELSE resolved as shift
-    SEMICOLON       reduce using rule 16 (construct_else -> .)
-    UNTIL           reduce using rule 16 (construct_else -> .)
-    END             reduce using rule 16 (construct_else -> .)
-    ELSE            shift and go to state 89
-
-  ! ELSE            [ reduce using rule 16 (construct_else -> .) ]
-
-    construct_else                 shift and go to state 88
-
-state 88
-
-    (15) construct_if -> IF LPAR a_expr oprel a_expr RPAR stmt construct_else .
-
-    SEMICOLON       reduce using rule 15 (construct_if -> IF LPAR a_expr oprel a_expr RPAR stmt construct_else .)
-    UNTIL           reduce using rule 15 (construct_if -> IF LPAR a_expr oprel a_expr RPAR stmt construct_else .)
-    END             reduce using rule 15 (construct_if -> IF LPAR a_expr oprel a_expr RPAR stmt construct_else .)
-    ELSE            reduce using rule 15 (construct_if -> IF LPAR a_expr oprel a_expr RPAR stmt construct_else .)
-
-
-state 89
 
     (17) construct_else -> ELSE . stmt
     (4) stmt -> . assignment
@@ -1648,7 +1593,7 @@ state 89
     (25) declaration -> . datatype ID arr_size
     (13) construct_while -> . WHILE LPAR l_expr RPAR DO block
     (14) construct_repeat -> . REPEAT stmt_list UNTIL LPAR l_expr RPAR
-    (15) construct_if -> . IF LPAR a_expr oprel a_expr RPAR stmt construct_else
+    (15) construct_if -> . IF LPAR l_expr RPAR stmt construct_else
     (12) block -> . BEGIN stmt_list END
     (28) datatype -> . DT_INT
     (29) datatype -> . DT_FLOAT
@@ -1663,7 +1608,7 @@ state 89
     DT_INT          shift and go to state 20
     DT_FLOAT        shift and go to state 21
 
-    stmt                           shift and go to state 90
+    stmt                           shift and go to state 88
     assignment                     shift and go to state 4
     read                           shift and go to state 5
     write                          shift and go to state 6
@@ -1674,7 +1619,7 @@ state 89
     block                          shift and go to state 11
     datatype                       shift and go to state 15
 
-state 90
+state 88
 
     (17) construct_else -> ELSE stmt .
 
@@ -1694,4 +1639,4 @@ WARNING: shift/reduce conflict for ADD in state 68 resolved as shift
 WARNING: shift/reduce conflict for SUB in state 68 resolved as shift
 WARNING: shift/reduce conflict for MUL in state 68 resolved as shift
 WARNING: shift/reduce conflict for DIV in state 68 resolved as shift
-WARNING: shift/reduce conflict for ELSE in state 87 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 83 resolved as shift
