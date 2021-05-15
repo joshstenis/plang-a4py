@@ -223,38 +223,42 @@ def p_datatype(p):
     p[0] = p[1]
 
 def p_a_expr(p):
-    '''a_expr : a_expr a_op a_expr
-              | varref
-              | INTEGER
-              | FLOAT
-              | LPAR a_expr RPAR
-              | SUB a_expr
-              | LITERAL_STR'''
+    '''a_expr : a_expr ADD a_term
+              | a_expr SUB a_term
+              | a_term'''
     try:
-    # if len(p) > 1:
-        if p[2] == '*':
-            p[0] = p[1] * p[3]
-        elif p[2] == '/':
-            p[0] = p[1] / p[3]
-        elif p[2] == '+':
+        if p[2] == '+':
             p[0] = p[1] + p[3]
         elif p[2] == '-':
             p[0] = p[1] - p[3]
     except IndexError:
         p[0] = p[1]
-        print(p[0])
-        # if p[1] == '(':
-        #     p[0] = p[1]
-        # elif p[1] == '-':
-        #     p[0] = p[2] * -1
         
+def p_a_term(p):
+    '''a_term : a_term DIV a_fact
+              | a_term MUL a_fact
+              | a_fact'''
+    try:
+        if p[2] == '*':
+            p[0] = p[1] * p[3]
+        elif p[2] == '/':
+            p[0] = p[1] / p[3]
+    except IndexError:
+        p[0] = p[1]
 
-def p_a_op(p):
-    '''a_op : ADD
-            | SUB
-            | MUL
-            | DIV'''
-    p[0] = p[1]
+def p_a_fact(p):
+    '''a_fact : varref
+              | INTEGER
+              | FLOAT
+              | LPAR a_expr RPAR
+              | SUB a_expr
+              | LITERAL_STR'''
+    if p[1] == '(':
+        p[0] = p[2]
+    elif p[1] == '-':
+        p[0] = p[2] * -1
+    else:
+        p[0] = p[1]
 
 def p_varref(p):
     '''varref : ID arr_idx'''
