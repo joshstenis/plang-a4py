@@ -11,6 +11,20 @@ tokens = (
     'SEMICOLON', 'COMMA', 'LBRACK', 'RBRACK', 'LPAR', 'RPAR'
 )
 
+# reserved = {
+#     'repeat': 'REPEAT',
+#     'read': 'READ', 
+#     'write': 'WRITE', 
+#     'begin': 'BEGIN', 
+#     'end': 'END', 
+#     'until': 'UNTIL', 
+#     'do': 'DO', 
+#     'while': 'WHILE', 
+#     'if': 'IF', 
+#     'then': 'THEN', 
+#     'else': 'ELSE'
+# }
+
 def t_FLOAT(t):
     r'\d+\.\d+'
     t.value = float(t.value)
@@ -153,16 +167,17 @@ def p_block(p):
 
 def p_construct_while(p):
     '''construct_while : WHILE LPAR l_expr RPAR DO block'''
-    while(p[3]):
+    while p[3]:
         p[0] = p[6]
 
 def p_construct_repeat(p):
     '''construct_repeat : REPEAT stmt_list UNTIL LPAR l_expr RPAR'''
+    while not p[5]:
+        p[0] = p[2]
 
 def p_construct_if(p):
     '''construct_if : IF LPAR l_expr RPAR stmt construct_else'''
-    cond = p[4]
-    if cond:
+    if p[4]:
         p[0] = p[5]
     else:
         if p[6] is None: pass
@@ -204,10 +219,16 @@ def p_assignment(p):
 
 def p_declaration(p):
     '''declaration : datatype ID arr_size'''
-    if p[1] == 'int':
-        env[p[2]] = [int(0)] * p[3]
-    elif p[1] == 'float':
-        env[p[2]] = [float(0)] * p[3]
+    if p[3] == 1:
+        if p[1] == 'int':
+            env[p[2]] = int(0)
+        elif p[1] == 'float':
+            env[p[2]] = float(0)
+    else:
+        if p[1] == 'int':
+            env[p[2]] = [int(0)] * p[3]
+        elif p[1] == 'float':
+            env[p[2]] = [float(0)] * p[3]
 
 def p_arr_size(p):
     '''arr_size : LBRACK a_expr RBRACK
@@ -256,13 +277,17 @@ def p_a_fact(p):
     if p[1] == '(':
         p[0] = p[2]
     elif p[1] == '-':
-        p[0] = p[2] * -1
+        p[0] = -p[2]
     else:
         p[0] = p[1]
 
 def p_varref(p):
-    '''varref : ID arr_idx'''
-    p[0] = env[p[1]][p[2]]
+    '''varref : ID 
+              | ID arr_idx'''
+    try:
+        p[0] = env[p[1]][p[2]]
+    except IndexError:
+        p[0] = env[p[1]]
 
 def p_arr_idx(p):
     '''arr_idx : LBRACK a_expr RBRACK'''
