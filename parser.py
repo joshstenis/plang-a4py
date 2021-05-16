@@ -141,7 +141,9 @@ lexer = lex.lex()
 # Grammar rules (.y) below
 # ---------------------------------------------
 
+global env
 env = {}
+
 stack = []
 
 def p_program(p):
@@ -150,6 +152,10 @@ def p_program(p):
 def p_stmt_list(p):
     '''stmt_list : stmt_list SEMICOLON stmt
                  | stmt'''
+    try:
+        p[0] = (p[1], p[3])
+    except IndexError:
+        p[0] = p[1]
 
 def p_stmt(p):
     '''stmt : assignment
@@ -160,6 +166,7 @@ def p_stmt(p):
             | construct_repeat
             | construct_if
             | block'''
+    p[0] = p[1]
 
 def p_block(p):
     '''block : BEGIN stmt_list END'''
@@ -214,8 +221,10 @@ def p_assignment(p):
                   | ID ASSIGN a_expr'''
     if p[2] == ':=':
         env[p[1]] = p[3]
+        # p[0] = p[3]         # debug
     else:
         env[p[1]][p[2]] = p[4]
+        # p[0] = p[4]         # debug
 
 def p_declaration(p):
     '''declaration : datatype ID arr_size'''
